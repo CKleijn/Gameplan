@@ -21,7 +21,7 @@ namespace GameplanAPI.Features.Season.UpdateSeason
 
             if (season == null)
             {
-                return Result.Failure(SeasonErrors.NotFound(request.Id));
+                return Result.Failure(Errors<Season>.NotFound(request.Id));
             }
 
             var validationResult = await validator.ValidateAsync(request, cancellationToken);

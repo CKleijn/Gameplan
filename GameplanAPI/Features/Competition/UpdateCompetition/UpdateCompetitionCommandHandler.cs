@@ -19,7 +19,7 @@ namespace GameplanAPI.Features.Competition.UpdateCompetition
 
             if (competition == null)
             {
-                return Result.Failure(CompetitionErrors.NotFound(request.Id));
+                return Result.Failure(Errors<Competition>.NotFound(request.Id));
             }
 
             var validationResult = await validator.ValidateAsync(request, cancellationToken);

@@ -1,5 +1,4 @@
-﻿using GameplanAPI.Features.Season._Helpers;
-using GameplanAPI.Features.Season._Interfaces;
+﻿using GameplanAPI.Features.Season._Interfaces;
 using GameplanAPI.Shared.Abstractions.Handling;
 using GameplanAPI.Shared.Abstractions.Interfaces;
 using GameplanAPI.Shared.Abstractions.Messaging;
@@ -17,7 +16,7 @@ namespace GameplanAPI.Features.Season.DeleteSeason
 
             if (season == null)
             {
-                return Result.Failure(SeasonErrors.NotFound(request.Id));
+                return Result.Failure(Errors<Season>.NotFound(request.Id));
             }
 
             seasonRepository.Delete(season);

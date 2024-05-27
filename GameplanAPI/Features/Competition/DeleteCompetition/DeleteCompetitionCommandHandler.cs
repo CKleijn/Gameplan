@@ -1,5 +1,4 @@
-﻿using GameplanAPI.Features.Competition._Helpers;
-using GameplanAPI.Features.Competition._Interfaces;
+﻿using GameplanAPI.Features.Competition._Interfaces;
 using GameplanAPI.Shared.Abstractions.Handling;
 using GameplanAPI.Shared.Abstractions.Interfaces;
 using GameplanAPI.Shared.Abstractions.Messaging;
@@ -19,7 +18,7 @@ namespace GameplanAPI.Features.Competition.DeleteCompetition
 
             if (competition == null)
             {
-                return Result.Failure(CompetitionErrors.NotFound(request.Id));
+                return Result.Failure(Errors<Competition>.NotFound(request.Id));
             }
 
             competitionRepository.Delete(competition);

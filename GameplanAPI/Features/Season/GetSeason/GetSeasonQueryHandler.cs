@@ -1,5 +1,4 @@
-﻿using GameplanAPI.Features.Season._Helpers;
-using GameplanAPI.Features.Season._Interfaces;
+﻿using GameplanAPI.Features.Season._Interfaces;
 using GameplanAPI.Shared.Abstractions.Handling;
 using GameplanAPI.Shared.Abstractions.Messaging;
 
@@ -16,7 +15,7 @@ namespace GameplanAPI.Features.Season.GetSeason
 
             if (season == null)
             {
-                return Result<Season>.Failure(SeasonErrors.NotFound(request.Id));
+                return Result<Season>.Failure(Errors<Season>.NotFound(request.Id));
             }
 
             return Result<Season>.Success(season);
