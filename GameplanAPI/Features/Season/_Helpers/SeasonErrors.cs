@@ -1,6 +1,6 @@
 ﻿using GameplanAPI.Shared.Abstractions.Handling;
 
-namespace GameplanAPI.Features.Season
+namespace GameplanAPI.Features.Season._Helpers
 {
     public static class SeasonErrors
     {

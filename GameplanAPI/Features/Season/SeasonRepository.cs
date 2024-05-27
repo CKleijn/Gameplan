@@ -1,4 +1,5 @@
-﻿using GameplanAPI.Shared.Abstractions;
+﻿using GameplanAPI.Features.Season._Interfaces;
+using GameplanAPI.Shared.Abstractions;
 using GameplanAPI.Shared.Database.Contexts;
 
 namespace GameplanAPI.Features.Season

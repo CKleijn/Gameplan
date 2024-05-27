@@ -1,6 +1,6 @@
 ﻿using GameplanAPI.Features.Season.CreateSeason;
 
-namespace GameplanAPI.Features.Season
+namespace GameplanAPI.Features.Season._Helpers
 {
     public static class SeasonMapper
     {

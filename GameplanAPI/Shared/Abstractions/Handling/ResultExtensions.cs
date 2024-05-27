@@ -9,8 +9,8 @@
                 throw new InvalidOperationException("Can't convert success result to problem details");
             }
 
-            object[] errors = (result.Error != Error.None) 
-                ? new[] { result.Error } 
+            object[] errors = result.Error != Error.None
+                ? new[] { result.Error }
                 : result.ValidationErrors
                     .Select(err => err.ErrorMessage)
                     .ToArray();

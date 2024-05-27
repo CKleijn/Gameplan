@@ -1,4 +1,4 @@
-﻿namespace GameplanAPI.Shared.Abstractions
+﻿namespace GameplanAPI.Shared.Abstractions.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : Entity
     {

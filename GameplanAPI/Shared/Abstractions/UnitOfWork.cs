@@ -1,4 +1,5 @@
-﻿using GameplanAPI.Shared.Database.Contexts;
+﻿using GameplanAPI.Shared.Abstractions.Interfaces;
+using GameplanAPI.Shared.Database.Contexts;
 
 namespace GameplanAPI.Shared.Abstractions
 {
