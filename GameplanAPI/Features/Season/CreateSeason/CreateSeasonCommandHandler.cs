@@ -21,11 +21,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
                 return Result.Failure(validationResult.Errors);
             }
 
-            var season = new Season
-            {
-                Club = request.Club,
-                CalendarYear = request.CalendarYear
-            };
+            var season = SeasonMapper.CreateSeasonCommandToSeason(request);
 
             seasonRepository.Add(season);
 

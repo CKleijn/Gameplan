@@ -29,9 +29,7 @@ namespace GameplanAPI.Features.Season.UpdateSeason
                 return Result.Failure(validationResult.Errors);
             }
 
-            season.Club = request.Club;
-            season.CalendarYear = request.CalendarYear;
-            season.UpdatedAt = DateTime.Now;
+            season.Update(request);
 
             seasonRepository.Update(season);
 
