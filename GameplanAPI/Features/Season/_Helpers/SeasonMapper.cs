@@ -1,16 +1,12 @@
-﻿using GameplanAPI.Features.Season.CreateSeason;
+﻿using GameplanAPI.Features.Season._Interfaces;
+using GameplanAPI.Features.Season.CreateSeason;
+using Riok.Mapperly.Abstractions;
 
 namespace GameplanAPI.Features.Season._Helpers
 {
-    public static class SeasonMapper
+    [Mapper]
+    public partial class SeasonMapper : ISeasonMapper
     {
-        public static Season CreateSeasonCommandToSeason(CreateSeasonCommand command)
-        {
-            return new Season
-            {
-                Club = command.Club,
-                CalendarYear = command.CalendarYear
-            };
-        }
+        public partial Season CreateSeasonCommandToSeason(CreateSeasonCommand command);
     }
 }

@@ -10,7 +10,8 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
     public sealed class CreateCompetitionCommandHandler(
         ICompetitionRepository competitionRepository,
         IUnitOfWork unitOfWork,
-        IValidator<CreateCompetitionCommand> validator)
+        IValidator<CreateCompetitionCommand> validator,
+        ICompetitionMapper mapper)
         : ICommandHandler<CreateCompetitionCommand>
     {
         public async Task<Result> Handle(
@@ -24,7 +25,7 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
                 return Result.Failure(validationResult.Errors);
             }
 
-            var competition = CompetitionMapper.CreateCompetitionCommandToCompetition(request);
+            var competition = mapper.CreateCompetitionCommandToCompetition(request);
 
             competitionRepository.Add(competition);
 

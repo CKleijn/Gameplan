@@ -1,7 +1,9 @@
 using FluentValidation;
 using GameplanAPI.Features.Competition;
+using GameplanAPI.Features.Competition._Helpers;
 using GameplanAPI.Features.Competition._Interfaces;
 using GameplanAPI.Features.Season;
+using GameplanAPI.Features.Season._Helpers;
 using GameplanAPI.Features.Season._Interfaces;
 using GameplanAPI.Shared.Abstractions;
 using GameplanAPI.Shared.Abstractions.Handling;
@@ -25,7 +27,9 @@ builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
 }));
 
 builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
+builder.Services.AddScoped<ICompetitionMapper, CompetitionMapper>();
 builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
+builder.Services.AddScoped<ISeasonMapper, SeasonMapper>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));

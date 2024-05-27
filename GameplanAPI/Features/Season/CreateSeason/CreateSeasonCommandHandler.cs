@@ -7,9 +7,11 @@ using GameplanAPI.Shared.Abstractions.Messaging;
 
 namespace GameplanAPI.Features.Season.CreateSeason
 {
-    public class CreateSeasonCommandHandler(ISeasonRepository seasonRepository, 
+    public class CreateSeasonCommandHandler(
+        ISeasonRepository seasonRepository, 
         IUnitOfWork unitOfWork, 
-        IValidator<CreateSeasonCommand> validator) 
+        IValidator<CreateSeasonCommand> validator,
+        ISeasonMapper mapper) 
         : ICommandHandler<CreateSeasonCommand>
     {
         public async Task<Result> Handle(
@@ -23,7 +25,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
                 return Result.Failure(validationResult.Errors);
             }
 
-            var season = SeasonMapper.CreateSeasonCommandToSeason(request);
+            var season = mapper.CreateSeasonCommandToSeason(request);
 
             seasonRepository.Add(season);
 

@@ -1,17 +1,12 @@
-﻿using GameplanAPI.Features.Competition.CreateCompetition;
+﻿using GameplanAPI.Features.Competition._Interfaces;
+using GameplanAPI.Features.Competition.CreateCompetition;
+using Riok.Mapperly.Abstractions;
 
 namespace GameplanAPI.Features.Competition._Helpers
 {
-    public static class CompetitionMapper
+    [Mapper]
+    public partial class CompetitionMapper : ICompetitionMapper
     {
-        public static Competition CreateCompetitionCommandToCompetition(CreateCompetitionCommand command)
-        {
-            return new Competition
-            {
-                Name = command.Name,
-                Type = command.Type,
-                Country = command.Country
-            };
-        }
+        public partial Competition CreateCompetitionCommandToCompetition(CreateCompetitionCommand command);
     }
 }
