@@ -1,4 +1,6 @@
 using FluentValidation;
+using GameplanAPI.Features.Competition;
+using GameplanAPI.Features.Competition._Interfaces;
 using GameplanAPI.Features.Season;
 using GameplanAPI.Features.Season._Interfaces;
 using GameplanAPI.Shared.Abstractions;
@@ -22,6 +24,7 @@ builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
         .WithOrigins("http://localhost:4200");
 }));
 
+builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
 builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
