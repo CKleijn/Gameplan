@@ -2,7 +2,8 @@
 
 namespace GameplanAPI.Features.Competition.CreateCompetition
 {
-    public sealed class CreateCompetitionCommandValidator : AbstractValidator<CreateCompetitionCommand>
+    public sealed class CreateCompetitionCommandValidator 
+        : AbstractValidator<CreateCompetitionCommand>
     {
         public CreateCompetitionCommandValidator()
         {

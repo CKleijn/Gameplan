@@ -1,19 +1,20 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Competition._Helpers;
+using GameplanAPI.Common.Errors;
+using GameplanAPI.Common.Interfaces;
+using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Competition._Interfaces;
-using GameplanAPI.Shared.Abstractions.Handling;
-using GameplanAPI.Shared.Abstractions.Interfaces;
-using GameplanAPI.Shared.Abstractions.Messaging;
 
 namespace GameplanAPI.Features.Competition.UpdateCompetition
 {
-    public class UpdateCompetitionCommandHandler(
+    public sealed class UpdateCompetitionCommandHandler(
         ICompetitionRepository competitionRepository,
         IUnitOfWork unitOfWork,
         IValidator<UpdateCompetitionCommand> validator)
         : ICommandHandler<UpdateCompetitionCommand>
     {
-        public async Task<Result> Handle(UpdateCompetitionCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(
+            UpdateCompetitionCommand request, 
+            CancellationToken cancellationToken)
         {
             var competition = await competitionRepository.Get(request.Id, cancellationToken);
 
@@ -29,7 +30,10 @@ namespace GameplanAPI.Features.Competition.UpdateCompetition
                 return Result.Failure(validationResult.Errors);
             }
 
-            competition.Update(request);
+            competition.Name = request.Name;
+            competition.Type = request.Type;
+            competition.Country = request.Country;
+            competition.UpdatedAt = DateTime.Now;
 
             competitionRepository.Update(competition);
 

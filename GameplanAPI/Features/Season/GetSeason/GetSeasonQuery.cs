@@ -1,6 +1,7 @@
-﻿using GameplanAPI.Shared.Abstractions.Messaging;
+﻿using GameplanAPI.Common.Interfaces;
 
 namespace GameplanAPI.Features.Season.GetSeason
 {
-    public sealed record GetSeasonQuery(Guid Id) : IQuery<Season>;
+    public sealed record GetSeasonQuery(Guid Id) 
+        : IQuery<Season>;
 }

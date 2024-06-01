@@ -2,7 +2,8 @@
 
 namespace GameplanAPI.Features.Competition.UpdateCompetition
 {
-    public sealed class UpdateCompetitionCommandValidator : AbstractValidator<UpdateCompetitionCommand>
+    public sealed class UpdateCompetitionCommandValidator 
+        : AbstractValidator<UpdateCompetitionCommand>
     {
         public UpdateCompetitionCommandValidator()
         {

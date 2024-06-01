@@ -1,8 +1,9 @@
-﻿using GameplanAPI.Shared.Abstractions.Interfaces;
+﻿using GameplanAPI.Common.Interfaces;
 
 namespace GameplanAPI.Features.Season._Interfaces
 {
-    public interface ISeasonRepository : IRepository<Season>
+    public interface ISeasonRepository 
+        : IRepository<Season>
     {
     }
 }

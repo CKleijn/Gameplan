@@ -2,7 +2,8 @@
 
 namespace GameplanAPI.Features.Season.CreateSeason
 {
-    public sealed class CreateSeasonCommandValidator : AbstractValidator<CreateSeasonCommand>
+    public sealed class CreateSeasonCommandValidator 
+        : AbstractValidator<CreateSeasonCommand>
     {
         public CreateSeasonCommandValidator()
         {

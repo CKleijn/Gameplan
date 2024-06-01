@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Competition._Helpers;
+using GameplanAPI.Common.Interfaces;
+using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Competition._Interfaces;
-using GameplanAPI.Shared.Abstractions.Handling;
-using GameplanAPI.Shared.Abstractions.Interfaces;
-using GameplanAPI.Shared.Abstractions.Messaging;
 
 namespace GameplanAPI.Features.Competition.CreateCompetition
 {

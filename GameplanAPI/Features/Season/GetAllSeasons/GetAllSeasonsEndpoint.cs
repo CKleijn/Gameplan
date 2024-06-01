@@ -1,11 +1,12 @@
 ﻿using Carter;
-using GameplanAPI.Shared.Abstractions;
-using GameplanAPI.Shared.Abstractions.Handling;
+using GameplanAPI.Common.Annotations;
+using GameplanAPI.Common.Extensions;
 using MediatR;
 
 namespace GameplanAPI.Features.Season.GetAllSeasons
 {
-    public sealed class GetAllSeasonsEndpoint : ICarterModule
+    public sealed class GetAllSeasonsEndpoint 
+        : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
@@ -17,7 +18,9 @@ namespace GameplanAPI.Features.Season.GetAllSeasons
 
                 var result = await sender.Send(query, cancellationToken);
 
-                return result.IsSuccess ? Results.Ok(result.Value) : result.GetProblemDetails();
+                return result.IsSuccess 
+                    ? Results.Ok(result.Value) 
+                    : result.GetProblemDetails();
             }).WithTags(Tags.Season);
         }
     }

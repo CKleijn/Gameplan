@@ -1,17 +1,16 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Competition._Helpers;
 using GameplanAPI.Features.Competition._Interfaces;
 using GameplanAPI.Features.Competition;
 using GameplanAPI.Features.Season;
 using GameplanAPI.Features.Season._Helpers;
 using GameplanAPI.Features.Season._Interfaces;
-using GameplanAPI.Shared.Abstractions;
-using GameplanAPI.Shared.Abstractions.Handling;
-using GameplanAPI.Shared.Abstractions.Interfaces;
-using GameplanAPI.Shared.Database.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Carter;
+using GameplanAPI.Common.Interfaces;
+using GameplanAPI.Infrastructure.Persistence.Contexts;
+using GameplanAPI.Common.Implementations;
+using GameplanAPI.Common.Handlers;
 
 namespace GameplanAPI
 {

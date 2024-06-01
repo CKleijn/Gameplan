@@ -1,10 +1,10 @@
-﻿using GameplanAPI.Features.Competition._Interfaces;
-using GameplanAPI.Shared.Abstractions.Handling;
-using GameplanAPI.Shared.Abstractions.Messaging;
+﻿using GameplanAPI.Common.Interfaces;
+using GameplanAPI.Common.Models;
+using GameplanAPI.Features.Competition._Interfaces;
 
 namespace GameplanAPI.Features.Competition.GetAllCompetitions
 {
-    public class GetAllCompetitionsQueryHandler(ICompetitionRepository competitionRepository) 
+    public sealed class GetAllCompetitionsQueryHandler(ICompetitionRepository competitionRepository) 
         : IQueryHandler<GetAllCompetitionsQuery, IEnumerable<Competition>>
     {
         public async Task<Result<IEnumerable<Competition>>> Handle(

@@ -1,4 +1,4 @@
-﻿using GameplanAPI.Shared.Abstractions;
+﻿using GameplanAPI.Common.Implementations;
 
 namespace GameplanAPI.Features.Competition
 {

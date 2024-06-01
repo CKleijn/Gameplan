@@ -1,11 +1,12 @@
 ﻿using Carter;
-using GameplanAPI.Shared.Abstractions;
-using GameplanAPI.Shared.Abstractions.Handling;
+using GameplanAPI.Common.Annotations;
+using GameplanAPI.Common.Extensions;
 using MediatR;
 
 namespace GameplanAPI.Features.Competition.CreateCompetition
 {
-    public class CreateCompetitionEndpoint : ICarterModule
+    public sealed class CreateCompetitionEndpoint 
+        : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
@@ -16,7 +17,9 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
             {
                 var result = await sender.Send(command, cancellationToken);
 
-                return result.IsSuccess ? Results.NoContent() : result.GetProblemDetails();
+                return result.IsSuccess 
+                    ? Results.NoContent() 
+                    : result.GetProblemDetails();
             }).WithTags(Tags.Competition);
         }
     }

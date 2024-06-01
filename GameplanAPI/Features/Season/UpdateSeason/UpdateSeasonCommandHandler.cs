@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Season._Helpers;
+using GameplanAPI.Common.Errors;
+using GameplanAPI.Common.Interfaces;
+using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Season._Interfaces;
-using GameplanAPI.Shared.Abstractions.Handling;
-using GameplanAPI.Shared.Abstractions.Interfaces;
-using GameplanAPI.Shared.Abstractions.Messaging;
 
 namespace GameplanAPI.Features.Season.UpdateSeason
 {
-    public class UpdateSeasonCommandHandler(
+    public sealed class UpdateSeasonCommandHandler(
         ISeasonRepository seasonRepository, 
         IUnitOfWork unitOfWork,
         IValidator<UpdateSeasonCommand> validator)
@@ -31,7 +30,9 @@ namespace GameplanAPI.Features.Season.UpdateSeason
                 return Result.Failure(validationResult.Errors);
             }
 
-            season.Update(request);
+            season.Club = request.Club;
+            season.CalendarYear = request.CalendarYear;
+            season.UpdatedAt = DateTime.Now;
 
             seasonRepository.Update(season);
 

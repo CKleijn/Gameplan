@@ -1,6 +1,9 @@
-﻿using GameplanAPI.Shared.Abstractions.Messaging;
+﻿using GameplanAPI.Common.Interfaces;
 
 namespace GameplanAPI.Features.Season.CreateSeason
 {
-    public sealed record CreateSeasonCommand(string Club, string CalendarYear) : ICommand;
+    public sealed record CreateSeasonCommand(
+        string Club, 
+        string CalendarYear) 
+        : ICommand;
 }

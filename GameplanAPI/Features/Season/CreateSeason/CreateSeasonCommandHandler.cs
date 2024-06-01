@@ -1,13 +1,11 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Season._Helpers;
+using GameplanAPI.Common.Interfaces;
+using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Season._Interfaces;
-using GameplanAPI.Shared.Abstractions.Handling;
-using GameplanAPI.Shared.Abstractions.Interfaces;
-using GameplanAPI.Shared.Abstractions.Messaging;
 
 namespace GameplanAPI.Features.Season.CreateSeason
 {
-    public class CreateSeasonCommandHandler(
+    public sealed class CreateSeasonCommandHandler(
         ISeasonRepository seasonRepository, 
         IUnitOfWork unitOfWork, 
         IValidator<CreateSeasonCommand> validator,

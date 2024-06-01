@@ -2,7 +2,8 @@
 
 namespace GameplanAPI.Features.Season.UpdateSeason
 {
-    public sealed class UpdateSeasonCommandValidator : AbstractValidator<UpdateSeasonCommand>
+    public sealed class UpdateSeasonCommandValidator 
+        : AbstractValidator<UpdateSeasonCommand>
     {
         public UpdateSeasonCommandValidator()
         {
