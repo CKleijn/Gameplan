@@ -11,6 +11,7 @@ using GameplanAPI.Shared.Abstractions.Interfaces;
 using GameplanAPI.Shared.Database.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Carter;
 
 namespace GameplanAPI
 {
@@ -31,6 +32,7 @@ namespace GameplanAPI
                     .WithOrigins("http://localhost:4200");
             }));
 
+            builder.Services.AddCarter();
             builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
             builder.Services.AddScoped<ICompetitionMapper, CompetitionMapper>();
             builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
@@ -46,7 +48,6 @@ namespace GameplanAPI
             builder.Services.AddProblemDetails();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddControllers();
         }
     }
 }
