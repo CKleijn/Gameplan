@@ -1,22 +1,23 @@
 ﻿using GameplanAPI.Shared.Abstractions.Interfaces;
 using GameplanAPI.Shared.Database.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace GameplanAPI.Shared.Abstractions
 {
     public abstract class Repository<TEntity>(ApplicationDbContext context, ILogger<Repository<TEntity>> logger) 
         : IRepository<TEntity> where TEntity : Entity
     {
-        public async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken)
+        public async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken, IEnumerable<Expression<Func<TEntity, object>>> includes)
         {
             logger.LogInformation($"[Repository<{typeof(TEntity).Name}>] Retrieving all records of type {typeof(TEntity).Name}");
-            return await context.Set<TEntity>().ToListAsync(cancellationToken);
+            return await context.Set<TEntity>().Include(includes).ToListAsync(cancellationToken);
         }
 
-        public async Task<TEntity?> Get(Guid id, CancellationToken cancellationToken)
+        public async Task<TEntity?> Get(Guid id, CancellationToken cancellationToken, IEnumerable<Expression<Func<TEntity, object>>> includes)
         {
             logger.LogInformation($"[Repository<{typeof(TEntity).Name}>] Retrieving specific record by id of type {typeof(TEntity).Name}");
-            return await context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            return await context.Set<TEntity>().Include(includes).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
         public void Add(TEntity entity)
