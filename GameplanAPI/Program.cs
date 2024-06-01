@@ -1,3 +1,4 @@
+using Carter;
 using GameplanAPI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseRouting();
-app.MapControllers();
+
+var apiGroup = app.MapGroup("/api");
+apiGroup.MapCarter();
 
 app.Run();

@@ -9,5 +9,8 @@ namespace GameplanAPI.Features.Season
 
         private string _calendarYear = string.Empty;
         public string CalendarYear { get { return _calendarYear; } set { _calendarYear = value; } }
+
+        //private IEnumerable<Guid>? _competitions;
+        //public IEnumerable<Guid>? Competitions { get { return _competitions; } set { _competitions = value; } }
     }
 }
