@@ -11,6 +11,10 @@ namespace GameplanAPI.Infrastructure.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<Season>()
+                .HasMany<Competition>()
+                .WithOne();
         }
     }
 }

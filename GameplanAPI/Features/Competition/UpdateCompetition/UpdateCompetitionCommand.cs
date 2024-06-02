@@ -6,6 +6,7 @@ namespace GameplanAPI.Features.Competition.UpdateCompetition
         Guid Id, 
         string Name, 
         CompetitionType Type, 
-        string? Country) 
+        string? Country,
+        Guid SeasonId) 
         : ICommand;
 }

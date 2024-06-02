@@ -5,6 +5,7 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
     public sealed record CreateCompetitionCommand(
         string Name, 
         CompetitionType Type, 
-        string? Country) 
+        string? Country,
+        Guid SeasonId) 
         : ICommand;
 }

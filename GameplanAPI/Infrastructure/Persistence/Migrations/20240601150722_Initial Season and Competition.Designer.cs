@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameplanAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240527112100_Add Competition")]
-    partial class AddCompetition
+    [Migration("20240601150722_Initial Season and Competition")]
+    partial class InitialSeasonandCompetition
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace GameplanAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -45,6 +48,8 @@ namespace GameplanAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SeasonId");
 
                     b.ToTable("Competitions");
                 });
@@ -69,6 +74,15 @@ namespace GameplanAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seasons");
+                });
+
+            modelBuilder.Entity("GameplanAPI.Features.Competition.Competition", b =>
+                {
+                    b.HasOne("GameplanAPI.Features.Season.Season", null)
+                        .WithMany()
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

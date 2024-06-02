@@ -12,6 +12,9 @@ namespace GameplanAPI.Features.Competition
 
         private string? _country;
         public string? Country { get { return _country; } set { _country = value; } }
+
+        private Guid _seasonId;
+        public Guid SeasonId { get { return _seasonId; } set { _seasonId = value; } }
     }
 
     public enum CompetitionType
