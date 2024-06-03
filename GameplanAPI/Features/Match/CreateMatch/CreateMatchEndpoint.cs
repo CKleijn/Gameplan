@@ -3,26 +3,24 @@ using GameplanAPI.Common.Annotations;
 using GameplanAPI.Common.Extensions;
 using MediatR;
 
-namespace GameplanAPI.Features.Competition.DeleteCompetition
+namespace GameplanAPI.Features.Match.CreateMatch
 {
-    public sealed class DeleteMatchEndpoint 
+    public sealed class UpdateMatchEndpoint
         : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapDelete("competition/{id}", async (
+            app.MapPost("match", async (
                 ISender sender,
-                Guid id,
+                CreateMatchCommand command,
                 CancellationToken cancellationToken) =>
             {
-                var command = new DeleteCompetitionCommand(id);
-
                 var result = await sender.Send(command, cancellationToken);
 
-                return result.IsSuccess 
-                    ? Results.NoContent() 
+                return result.IsSuccess
+                    ? Results.NoContent()
                     : result.GetProblemDetails();
-            }).WithTags(Tags.Competition);
+            }).WithTags(Tags.Match);
         }
     }
 }

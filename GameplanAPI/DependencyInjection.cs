@@ -11,6 +11,8 @@ using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Infrastructure.Persistence.Contexts;
 using GameplanAPI.Common.Implementations;
 using GameplanAPI.Common.Handlers;
+using GameplanAPI.Features.Match._Interfaces;
+using GameplanAPI.Features.Match;
 
 namespace GameplanAPI
 {
@@ -36,6 +38,8 @@ namespace GameplanAPI
             builder.Services.AddScoped<ICompetitionMapper, CompetitionMapper>();
             builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
             builder.Services.AddScoped<ISeasonMapper, SeasonMapper>();
+            builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+            builder.Services.AddScoped<IMatchMapper, MatchMapper>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));

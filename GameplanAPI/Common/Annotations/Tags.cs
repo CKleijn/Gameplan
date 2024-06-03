@@ -4,5 +4,6 @@
     {
         public readonly static string Season = "Season";
         public readonly static string Competition = "Competition";
+        public readonly static string Match = "Match";
     }
 }
