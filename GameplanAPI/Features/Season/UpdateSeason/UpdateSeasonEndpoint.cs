@@ -28,7 +28,6 @@ namespace GameplanAPI.Features.Season.UpdateSeason
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)
-            .MapToApiVersion(2)
             .WithTags(Tags.Season);
         }
     }

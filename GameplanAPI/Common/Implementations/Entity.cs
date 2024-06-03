@@ -7,13 +7,8 @@ namespace GameplanAPI.Common.Implementations
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private Guid _id;
-        public Guid Id { get { return _id; } private set { _id = value; } }
-
-        private DateTime? _updatedAt;
-        public DateTime? UpdatedAt { get { return _updatedAt; } set { _updatedAt = value; } }
-
-        private DateTime _createdAt = DateTime.Now;
-        public DateTime CreatedAt { get { return _createdAt; } }
+        public Guid Id { get; private set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; } = DateTime.Now;
     }
 }

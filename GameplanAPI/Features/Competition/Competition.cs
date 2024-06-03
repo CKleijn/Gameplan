@@ -2,19 +2,12 @@
 
 namespace GameplanAPI.Features.Competition
 {
-    public class Competition : Entity
+    public sealed class Competition : Entity
     {
-        private string _name = string.Empty;
-        public string Name { get { return _name; } set { _name = value; } }
-
-        private CompetitionType _type = CompetitionType.Other;
-        public CompetitionType Type { get { return _type; } set { _type = value; } }
-
-        private string? _country;
-        public string? Country { get { return _country; } set { _country = value; } }
-
-        private Guid _seasonId;
-        public Guid SeasonId { get { return _seasonId; } set { _seasonId = value; } }
+        public string Name { get; set; } = string.Empty;
+        public CompetitionType Type { get; set; } = CompetitionType.Other;
+        public string? Country { get; set; }
+        public Guid SeasonId { get; set; } = Guid.Empty;
     }
 
     public enum CompetitionType

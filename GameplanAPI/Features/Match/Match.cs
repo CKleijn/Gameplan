@@ -2,25 +2,14 @@
 
 namespace GameplanAPI.Features.Match
 {
-    public class Match : Entity
+    public sealed class Match : Entity
     {
-        private string _homeClub = string.Empty;
-        public string HomeClub { get { return _homeClub; } set { _homeClub = value; } }
-
-        private int _homeScore = 0;
-        public int HomeScore { get { return _homeScore; } set { _homeScore = value; } }
-
-        private string _awayClub = string.Empty;
-        public string AwayClub { get { return _awayClub; } set { _awayClub = value; } }
-
-        private int _awayScore = 0;
-        public int AwayScore { get { return _awayScore; } set { _awayScore = value; } }
-
-        private MatchStatus _matchStatus = MatchStatus.Upcoming;
-        public MatchStatus MatchStatus { get { return _matchStatus; } set { _matchStatus = value; } }
-
-        private Guid _competitionId;
-        public Guid CompetitionId { get { return _competitionId; } set { _competitionId = value; } }
+        public string HomeClub { get; set; } = string.Empty;
+        public int HomeScore { get; set; } = 0;
+        public string AwayClub { get; set; } = string.Empty;
+        public int AwayScore { get; set; } = 0;
+        public MatchStatus MatchStatus { get; set; } = MatchStatus.Upcoming;
+        public Guid CompetitionId { get; set; } = Guid.Empty;
     }
 
     public enum MatchStatus
