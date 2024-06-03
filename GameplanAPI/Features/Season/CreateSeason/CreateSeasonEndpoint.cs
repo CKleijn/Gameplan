@@ -18,7 +18,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
                 var result = await sender.Send(command, cancellationToken);
 
                 return result.IsSuccess 
-                    ? Results.NoContent() 
+                    ? Results.Ok(result.Value)
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)

@@ -5,14 +5,14 @@ using GameplanAPI.Features.Match._Interfaces;
 
 namespace GameplanAPI.Features.Match.CreateMatch
 {
-    public sealed class UpdateMatchCommandHandler(
+    public sealed class CreateMatchCommandHandler(
         IMatchRepository matchRepository,
         IUnitOfWork unitOfWork,
         IValidator<CreateMatchCommand> validator,
         IMatchMapper mapper)
-        : ICommandHandler<CreateMatchCommand>
+        : ICommandHandler<CreateMatchCommand, Guid>
     {
-        public async Task<Result> Handle(
+        public async Task<Result<Guid>> Handle(
             CreateMatchCommand request, 
             CancellationToken cancellationToken)
         {
@@ -20,7 +20,7 @@ namespace GameplanAPI.Features.Match.CreateMatch
 
             if (!validationResult.IsValid)
             {
-                return Result.Failure(validationResult.Errors);
+                return Result<Guid>.Failure(validationResult.Errors);
             }
 
             var match = mapper.CreateMatchCommandToMatch(request);
@@ -29,7 +29,7 @@ namespace GameplanAPI.Features.Match.CreateMatch
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return Result.Success();
+            return Result<Guid>.Success(match.Id);
         }
     }
 }

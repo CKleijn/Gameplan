@@ -10,9 +10,9 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
         IUnitOfWork unitOfWork,
         IValidator<CreateCompetitionCommand> validator,
         ICompetitionMapper mapper)
-        : ICommandHandler<CreateCompetitionCommand>
+        : ICommandHandler<CreateCompetitionCommand, Guid>
     {
-        public async Task<Result> Handle(
+        public async Task<Result<Guid>> Handle(
             CreateCompetitionCommand request, 
             CancellationToken cancellationToken)
         {
@@ -20,7 +20,7 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
 
             if (!validationResult.IsValid)
             {
-                return Result.Failure(validationResult.Errors);
+                return Result<Guid>.Failure(validationResult.Errors);
             }
 
             var competition = mapper.CreateCompetitionCommandToCompetition(request);
@@ -29,7 +29,7 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return Result.Success();
+            return Result<Guid>.Success(competition.Id);
         }
     }
 }

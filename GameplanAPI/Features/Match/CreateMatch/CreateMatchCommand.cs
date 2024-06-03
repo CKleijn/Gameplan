@@ -6,5 +6,5 @@ namespace GameplanAPI.Features.Match.CreateMatch
         Guid HomeClubId,
         Guid AwayClubId,
         Guid CompetitionId)
-        : ICommand;
+        : ICommand<Guid>;
 }

@@ -10,9 +10,9 @@ namespace GameplanAPI.Features.Season.CreateSeason
         IUnitOfWork unitOfWork, 
         IValidator<CreateSeasonCommand> validator,
         ISeasonMapper mapper) 
-        : ICommandHandler<CreateSeasonCommand>
+        : ICommandHandler<CreateSeasonCommand, Guid>
     {
-        public async Task<Result> Handle(
+        public async Task<Result<Guid>> Handle(
             CreateSeasonCommand request, 
             CancellationToken cancellationToken)
         {
@@ -20,7 +20,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
 
             if (!validationResult.IsValid)
             {
-                return Result.Failure(validationResult.Errors);
+                return Result<Guid>.Failure(validationResult.Errors);
             }
 
             var season = mapper.CreateSeasonCommandToSeason(request);
@@ -29,7 +29,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return Result.Success();
+            return Result<Guid>.Success(season.Id);
         }
     }
 }

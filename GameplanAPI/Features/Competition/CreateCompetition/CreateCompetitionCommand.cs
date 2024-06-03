@@ -7,5 +7,5 @@ namespace GameplanAPI.Features.Competition.CreateCompetition
         CompetitionType Type, 
         string? Country,
         Guid SeasonId) 
-        : ICommand;
+        : ICommand<Guid>;
 }
