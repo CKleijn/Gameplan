@@ -21,7 +21,9 @@ namespace GameplanAPI.Features.Competition.GetAllCompetitions
                 return result.IsSuccess 
                     ? Results.Ok(result.Value) 
                     : result.GetProblemDetails();
-            }).WithTags(Tags.Competition);
+            })
+            .MapToApiVersion(1)
+            .WithTags(Tags.Competition);
         }
     }
 }

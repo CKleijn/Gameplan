@@ -21,7 +21,9 @@ namespace GameplanAPI.Features.Match.GetAllMatches
                 return result.IsSuccess
                     ? Results.Ok(result.Value)
                     : result.GetProblemDetails();
-            }).WithTags(Tags.Match);
+            })
+            .MapToApiVersion(1)
+            .WithTags(Tags.Match);
         }
     }
 }

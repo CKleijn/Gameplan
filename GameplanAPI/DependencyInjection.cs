@@ -13,6 +13,7 @@ using GameplanAPI.Common.Implementations;
 using GameplanAPI.Common.Handlers;
 using GameplanAPI.Features.Match._Interfaces;
 using GameplanAPI.Features.Match;
+using Asp.Versioning;
 
 namespace GameplanAPI
 {
@@ -51,6 +52,20 @@ namespace GameplanAPI
             builder.Services.AddProblemDetails();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            })
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'V";
+                options.SubstituteApiVersionInUrl = true;
+            });
+
+            builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Carter;
 using GameplanAPI;
 
@@ -7,19 +8,38 @@ DependencyInjection.Configure(builder);
 
 var app = builder.Build();
 
+var apiVersionSet = app.NewApiVersionSet()
+    .HasApiVersion(new ApiVersion(1))
+    .ReportApiVersions()
+    .Build();
+
+var apiGroup = app
+    .MapGroup("/api/v{apiVersion:apiVersion}")
+    .WithApiVersionSet(apiVersionSet);
+
+apiGroup.MapCarter();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        var descriptions = app.DescribeApiVersions();
+
+        foreach (var description in descriptions)
+        {
+            string url = $"/swagger/{description.GroupName}/swagger.json";
+            string name = description.GroupName.ToUpperInvariant();
+
+            options.SwaggerEndpoint(url, name);
+        }
+    });
 }
 
 app.UseExceptionHandler();
-app.UseSwagger();
-app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseRouting();
-
-var apiGroup = app.MapGroup("/api");
-apiGroup.MapCarter();
 
 app.Run();

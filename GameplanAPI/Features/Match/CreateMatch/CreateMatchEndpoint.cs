@@ -20,7 +20,9 @@ namespace GameplanAPI.Features.Match.CreateMatch
                 return result.IsSuccess
                     ? Results.NoContent()
                     : result.GetProblemDetails();
-            }).WithTags(Tags.Match);
+            })
+            .MapToApiVersion(1)
+            .WithTags(Tags.Match);
         }
     }
 }

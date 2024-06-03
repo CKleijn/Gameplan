@@ -21,7 +21,9 @@ namespace GameplanAPI.Features.Season.GetAllSeasons
                 return result.IsSuccess 
                     ? Results.Ok(result.Value) 
                     : result.GetProblemDetails();
-            }).WithTags(Tags.Season);
+            })
+            .MapToApiVersion(1)
+            .WithTags(Tags.Season);
         }
     }
 }

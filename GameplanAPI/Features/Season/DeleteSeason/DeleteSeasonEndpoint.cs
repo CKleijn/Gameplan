@@ -22,7 +22,9 @@ namespace GameplanAPI.Features.Season.DeleteSeason
                 return result.IsSuccess 
                     ? Results.NoContent() 
                     : result.GetProblemDetails();
-            }).WithTags(Tags.Season);
+            })
+            .MapToApiVersion(1)
+            .WithTags(Tags.Season);
         }
     }
 }
