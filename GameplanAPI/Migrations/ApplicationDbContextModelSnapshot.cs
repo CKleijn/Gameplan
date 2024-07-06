@@ -22,24 +22,34 @@ namespace GameplanAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GameplanAPI.Features.Competition.Competition", b =>
+            modelBuilder.Entity("GameplanAPI.Features.Match.Match", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("AwayClub")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("AwayScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompetitionType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeClub")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HomeScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchStatus")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("SeasonId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -48,7 +58,7 @@ namespace GameplanAPI.Migrations
 
                     b.HasIndex("SeasonId");
 
-                    b.ToTable("Competitions");
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("GameplanAPI.Features.Season.Season", b =>
@@ -73,13 +83,18 @@ namespace GameplanAPI.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("GameplanAPI.Features.Competition.Competition", b =>
+            modelBuilder.Entity("GameplanAPI.Features.Match.Match", b =>
                 {
                     b.HasOne("GameplanAPI.Features.Season.Season", null)
-                        .WithMany()
+                        .WithMany("Matches")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GameplanAPI.Features.Season.Season", b =>
+                {
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

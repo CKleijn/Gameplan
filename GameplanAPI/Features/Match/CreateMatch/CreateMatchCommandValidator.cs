@@ -1,28 +1,27 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Competition.GetCompetition;
-using MediatR;
 
 namespace GameplanAPI.Features.Match.CreateMatch
 {
     public sealed class UpdateMatchCommandValidator
         : AbstractValidator<CreateMatchCommand>
     {
-        public UpdateMatchCommandValidator(ISender sender)
+        public UpdateMatchCommandValidator()
         {
-            // Check clubs
-
-            RuleFor(match => match.CompetitionId)
+            RuleFor(match => match.HomeClub)
                 .NotEmpty()
-                .WithMessage("CompetitionId is required!")
-                .MustAsync(async (competitionId, cancellationToken) =>
-                {
-                    var query = new GetCompetitionQuery(competitionId);
+                .WithMessage("HomeClub is required!");
 
-                    var result = await sender.Send(query, cancellationToken);
+            RuleFor(match => match.AwayClub)
+                .NotEmpty()
+                .WithMessage("AwayClub is required!");
 
-                    return result.IsSuccess;
-                })
-                .WithMessage("CompetitionId must exist!");
+            RuleFor(match => match.CompetitionType)
+                .NotNull()
+                .WithMessage("CompetitionType is required!");
+
+            RuleFor(match => match.SeasonId)
+                .NotEmpty()
+                .WithMessage("SeasonId is required!");
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GameplanAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialSeasonandCompetition : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,21 +26,24 @@ namespace GameplanAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Competitions",
+                name: "Matches",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HomeClub = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HomeScore = table.Column<int>(type: "int", nullable: false),
+                    AwayClub = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AwayScore = table.Column<int>(type: "int", nullable: false),
+                    MatchStatus = table.Column<int>(type: "int", nullable: false),
+                    CompetitionType = table.Column<int>(type: "int", nullable: false),
                     SeasonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Competitions", x => x.Id);
+                    table.PrimaryKey("PK_Matches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Competitions_Seasons_SeasonId",
+                        name: "FK_Matches_Seasons_SeasonId",
                         column: x => x.SeasonId,
                         principalTable: "Seasons",
                         principalColumn: "Id",
@@ -48,8 +51,8 @@ namespace GameplanAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Competitions_SeasonId",
-                table: "Competitions",
+                name: "IX_Matches_SeasonId",
+                table: "Matches",
                 column: "SeasonId");
         }
 
@@ -57,7 +60,7 @@ namespace GameplanAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Competitions");
+                name: "Matches");
 
             migrationBuilder.DropTable(
                 name: "Seasons");

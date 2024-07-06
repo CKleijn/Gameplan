@@ -2,12 +2,15 @@
 using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Match._Interfaces;
+using GameplanAPI.Features.Season.GetSeason;
+using MediatR;
 
 namespace GameplanAPI.Features.Match.CreateMatch
 {
     public sealed class CreateMatchCommandHandler(
         IMatchRepository matchRepository,
         IUnitOfWork unitOfWork,
+        ISender sender,
         IValidator<CreateMatchCommand> validator,
         IMatchMapper mapper)
         : ICommandHandler<CreateMatchCommand, Guid>
@@ -21,6 +24,15 @@ namespace GameplanAPI.Features.Match.CreateMatch
             if (!validationResult.IsValid)
             {
                 return Result<Guid>.Failure(validationResult.Errors);
+            }
+
+            var querySeason = new GetSeasonQuery(request.SeasonId);
+
+            var querySeasonResult = await sender.Send(querySeason, cancellationToken);
+
+            if (querySeasonResult.IsFailure)
+            {
+                return Result<Guid>.Failure(querySeasonResult.Error);
             }
 
             var match = mapper.CreateMatchCommandToMatch(request);

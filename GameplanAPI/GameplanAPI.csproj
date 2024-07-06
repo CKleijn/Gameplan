@@ -4,6 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a291c2d5-bd79-40cb-b7c4-aad6ee7ca6b4</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,9 +26,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Riok.Mapperly" Version="3.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Entities\" />
+    <Folder Include="Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

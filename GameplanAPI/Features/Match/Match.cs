@@ -1,4 +1,5 @@
-﻿using GameplanAPI.Common.Implementations;
+﻿using GameplanAPI.Common.Enums;
+using GameplanAPI.Common.Implementations;
 
 namespace GameplanAPI.Features.Match
 {
@@ -9,14 +10,8 @@ namespace GameplanAPI.Features.Match
         public string AwayClub { get; set; } = string.Empty;
         public int AwayScore { get; set; } = 0;
         public MatchStatus MatchStatus { get; set; } = MatchStatus.Upcoming;
-        public Guid CompetitionId { get; set; } = Guid.Empty;
-    }
-
-    public enum MatchStatus
-    {
-        Upcoming = 0,
-        Playing = 1,
-        Finished = 2,
-        Postponed = 3
+        public CompetitionType CompetitionType { get; set; } = CompetitionType.Other;
+        public Guid SeasonId { get; set; } = Guid.Empty;
+        // Participants
     }
 }
