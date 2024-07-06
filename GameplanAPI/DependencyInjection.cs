@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using GameplanAPI.Features.Competition._Interfaces;
-using GameplanAPI.Features.Competition;
 using GameplanAPI.Features.Season;
 using GameplanAPI.Features.Season._Helpers;
 using GameplanAPI.Features.Season._Interfaces;
@@ -35,8 +33,6 @@ namespace GameplanAPI
             }));
 
             builder.Services.AddCarter();
-            builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
-            builder.Services.AddScoped<ICompetitionMapper, CompetitionMapper>();
             builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
             builder.Services.AddScoped<ISeasonMapper, SeasonMapper>();
             builder.Services.AddScoped<IMatchRepository, MatchRepository>();
