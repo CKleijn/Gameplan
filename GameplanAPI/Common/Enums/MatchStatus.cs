@@ -3,8 +3,7 @@
     public enum MatchStatus
     {
         Upcoming = 0,
-        Playing = 1,
-        Finished = 2,
-        Postponed = 3
+        Finished = 1,
+        Postponed = 2
     }
 }

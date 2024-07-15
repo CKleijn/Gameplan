@@ -6,7 +6,6 @@ namespace GameplanAPI.Features.Season
     {
         public string Club { get; set; } = string.Empty;
         public string CalendarYear { get; set; } = string.Empty;
-        public IList<Match.Match> Matches { get; set; } = new List<Match.Match>();
         // Creator
         // Participants
     }

@@ -12,12 +12,7 @@ namespace GameplanAPI.Features.Season.GetAllSeasons
             GetAllSeasonsQuery request, 
             CancellationToken cancellationToken)
         {
-            var includes = new List<Expression<Func<Season, object>>>
-            {
-                season => season.Matches
-            };
-
-            var seasons = await seasonRepository.GetAll(cancellationToken, includes);
+            var seasons = await seasonRepository.GetAll(cancellationToken);
 
             return Result<IEnumerable<Season>>.Success(seasons);
         }

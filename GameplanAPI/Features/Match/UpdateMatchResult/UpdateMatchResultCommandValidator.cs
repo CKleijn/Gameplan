@@ -18,6 +18,10 @@ namespace GameplanAPI.Features.Match.UpdateMatchResult
             RuleFor(match => match.AwayScore)
                 .NotEmpty()
                 .WithMessage("AwayScore is required!");
+
+            RuleFor(match => match.MatchStatus)
+                .NotEmpty()
+                .WithMessage("MatchStatus is required!");
         }
     }
 }

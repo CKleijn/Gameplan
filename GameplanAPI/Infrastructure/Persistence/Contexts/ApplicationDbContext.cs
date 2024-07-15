@@ -12,9 +12,9 @@ namespace GameplanAPI.Infrastructure.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<Season>()
-                .HasMany(s => s.Matches)
-                .WithOne()
+                .Entity<Match>()
+                .HasOne<Season>()
+                .WithMany()
                 .HasForeignKey(m => m.SeasonId);
         }
     }

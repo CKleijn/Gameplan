@@ -9,6 +9,6 @@ namespace GameplanAPI.Common.Implementations
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
         public DateTime? UpdatedAt { get; set; }
-        public DateTime CreatedAt { get; } = DateTime.Now;
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
     }
 }

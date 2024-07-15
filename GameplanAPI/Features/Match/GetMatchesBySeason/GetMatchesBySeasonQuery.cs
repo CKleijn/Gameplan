@@ -2,6 +2,6 @@
 
 namespace GameplanAPI.Features.Match.GetAllMatches
 {
-    public sealed record GetAllMatchesQuery() 
+    public sealed record GetMatchesBySeasonQuery(Guid SeasonId) 
         : IQuery<IEnumerable<Match>>;
 }

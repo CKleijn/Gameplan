@@ -38,6 +38,9 @@ namespace GameplanAPI.Migrations
                     b.Property<int>("CompetitionType")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("HomeClub")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,6 +78,9 @@ namespace GameplanAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -86,15 +92,10 @@ namespace GameplanAPI.Migrations
             modelBuilder.Entity("GameplanAPI.Features.Match.Match", b =>
                 {
                     b.HasOne("GameplanAPI.Features.Season.Season", null)
-                        .WithMany("Matches")
+                        .WithMany()
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GameplanAPI.Features.Season.Season", b =>
-                {
-                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

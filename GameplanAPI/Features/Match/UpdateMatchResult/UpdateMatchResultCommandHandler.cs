@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using GameplanAPI.Common.Enums;
+using GameplanAPI.Common.Errors;
 using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Match._Interfaces;
@@ -36,9 +38,14 @@ namespace GameplanAPI.Features.Match.UpdateMatchResult
 
             var match = matchQueryResult.Value!;
 
+            if (match.MatchStatus == MatchStatus.Finished)
+            {
+                return Result.Failure(new Error("Match.MatchAlreadyFinished", $"This match with GUID {match.Id} has already finished"));
+            }
+
             match.HomeScore = request.HomeScore;
             match.AwayScore = request.AwayScore;
-            match.MatchStatus = Common.Enums.MatchStatus.Finished;
+            match.MatchStatus = request.MatchStatus;
             match.UpdatedAt = DateTime.Now;
 
             matchRepository.Update(match);
