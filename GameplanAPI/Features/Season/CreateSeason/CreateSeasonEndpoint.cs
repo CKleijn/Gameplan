@@ -11,6 +11,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
         public void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapPost("season", async (
+                HttpContext httpContext,
                 ISender sender,
                 CreateSeasonCommand command,
                 CancellationToken cancellationToken) =>
@@ -22,6 +23,7 @@ namespace GameplanAPI.Features.Season.CreateSeason
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)
+            .RequireAuthorization()
             .WithTags(Tags.Season);
         }
     }

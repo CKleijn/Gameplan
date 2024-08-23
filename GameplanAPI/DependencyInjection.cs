@@ -12,6 +12,14 @@ using GameplanAPI.Common.Handlers;
 using GameplanAPI.Features.Match._Interfaces;
 using GameplanAPI.Features.Match;
 using Asp.Versioning;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using GameplanAPI.Features.User._Interfaces;
+using GameplanAPI.Features.User;
+using Microsoft.OpenApi.Models;
+using GameplanAPI.Common.Services._Interfaces;
+using GameplanAPI.Common.Services;
 
 namespace GameplanAPI
 {
@@ -37,6 +45,9 @@ namespace GameplanAPI
             builder.Services.AddScoped<ISeasonMapper, SeasonMapper>();
             builder.Services.AddScoped<IMatchRepository, MatchRepository>();
             builder.Services.AddScoped<IMatchMapper, MatchMapper>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserMapper, UserMapper>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
@@ -44,10 +55,33 @@ namespace GameplanAPI
 
             builder.Services.AddLogging(cfg => cfg.AddConsole());
 
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c => {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme.",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme 
+                    {
+                        Reference = new OpenApiReference 
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] {}
+                }});
+            });
 
             builder.Services.AddApiVersioning(options =>
             {
@@ -62,6 +96,22 @@ namespace GameplanAPI
             });
 
             builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile("gameplan-firebase.json")
+            });
+
+            builder.Services
+                .AddAuthentication()
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.Authority = configuration["Authentication:ValidIssuer"];
+                    options.Audience = configuration["Authentication:Audience"];
+                    options.TokenValidationParameters.ValidIssuer = configuration["Authentication:ValidIssuer"];
+                });
+
+            builder.Services.AddAuthorization();
         }
     }
 }

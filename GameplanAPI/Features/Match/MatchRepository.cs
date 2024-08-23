@@ -2,7 +2,6 @@
 using GameplanAPI.Features.Match._Interfaces;
 using GameplanAPI.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Extensions;
 
 namespace GameplanAPI.Features.Match
 {

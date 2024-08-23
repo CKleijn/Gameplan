@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using GameplanAPI.Common.Enums;
-using GameplanAPI.Common.Errors;
 using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Match._Interfaces;
@@ -45,7 +44,7 @@ namespace GameplanAPI.Features.Match.UpdateMatchResult
 
             match.HomeScore = request.HomeScore;
             match.AwayScore = request.AwayScore;
-            match.MatchStatus = request.MatchStatus;
+            match.MatchStatus = Enum.Parse<MatchStatus>(request.MatchStatus);
             match.UpdatedAt = DateTime.Now;
 
             matchRepository.Update(match);

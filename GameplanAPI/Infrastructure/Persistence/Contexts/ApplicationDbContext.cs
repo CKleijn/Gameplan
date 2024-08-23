@@ -1,5 +1,6 @@
 ﻿using GameplanAPI.Features.Match;
 using GameplanAPI.Features.Season;
+using GameplanAPI.Features.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameplanAPI.Infrastructure.Persistence.Contexts
@@ -8,14 +9,24 @@ namespace GameplanAPI.Infrastructure.Persistence.Contexts
     {
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Match> Matches { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Entity<Match>()
                 .HasOne<Season>()
+                .WithMany(s => s.Matches)
+                .HasForeignKey(m => m.SeasonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<Season>()
+                .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(m => m.SeasonId);
+                .HasForeignKey(s => s.UserId)
+                .HasPrincipalKey(u => u.UID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

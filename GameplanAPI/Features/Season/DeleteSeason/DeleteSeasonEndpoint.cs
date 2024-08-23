@@ -19,11 +19,12 @@ namespace GameplanAPI.Features.Season.DeleteSeason
 
                 var result = await sender.Send(command, cancellationToken);
 
-                return result.IsSuccess 
-                    ? Results.NoContent() 
+                return result.IsSuccess
+                    ? Results.NoContent()
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)
+            .RequireAuthorization()
             .WithTags(Tags.Season);
         }
     }

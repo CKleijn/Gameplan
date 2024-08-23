@@ -26,6 +26,7 @@ namespace GameplanAPI.Features.Season.GetSeason
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)
+            .RequireAuthorization()
             .WithTags(Tags.Season);
         }
     }

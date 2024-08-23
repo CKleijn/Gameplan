@@ -13,7 +13,12 @@ namespace GameplanAPI.Features.Season.GetSeason
             GetSeasonQuery request,
             CancellationToken cancellationToken)
         {
-            var season = await seasonRepository.Get(request.Id, cancellationToken);
+            var includes = new List<Expression<Func<Season, object>>>
+            {
+                s => s.Matches
+            };
+
+            var season = await seasonRepository.Get(request.Id, cancellationToken, includes);
 
             if (season == null)
             {

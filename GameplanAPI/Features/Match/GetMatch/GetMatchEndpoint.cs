@@ -26,6 +26,7 @@ namespace GameplanAPI.Features.Match.GetMatch
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)
+            .RequireAuthorization()
             .WithTags(Tags.Match);
         }
     }

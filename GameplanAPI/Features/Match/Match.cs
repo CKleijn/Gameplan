@@ -9,6 +9,7 @@ namespace GameplanAPI.Features.Match
         public int HomeScore { get; set; } = 0;
         public string AwayClub { get; set; } = string.Empty;
         public int AwayScore { get; set; } = 0;
+        public DateTime DateTime { get; set; } = DateTime.Now;
         public MatchStatus MatchStatus { get; set; } = MatchStatus.Upcoming;
         public CompetitionType CompetitionType { get; set; } = CompetitionType.Other;
         public Guid SeasonId { get; set; } = Guid.Empty;

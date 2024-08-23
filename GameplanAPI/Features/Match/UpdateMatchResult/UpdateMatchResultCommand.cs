@@ -7,6 +7,6 @@ namespace GameplanAPI.Features.Match.UpdateMatchResult
         Guid Id,
         int HomeScore,
         int AwayScore,
-        MatchStatus MatchStatus)
+        string MatchStatus)
         : ICommand;
 }

@@ -22,6 +22,10 @@ namespace GameplanAPI.Features.Match.UpdateMatch
             RuleFor(match => match.CompetitionType)
                 .NotEmpty()
                 .WithMessage("CompetitionType is required!");
+
+            RuleFor(match => match.DateTime)
+                .NotEmpty()
+                .WithMessage("DateTime is required!");
         }
     }
 }

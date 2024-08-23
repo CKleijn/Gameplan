@@ -1,5 +1,4 @@
-﻿using GameplanAPI.Common.Enums;
-using GameplanAPI.Common.Interfaces;
+﻿using GameplanAPI.Common.Interfaces;
 
 namespace GameplanAPI.Features.Match.UpdateMatch
 {
@@ -7,6 +6,7 @@ namespace GameplanAPI.Features.Match.UpdateMatch
         Guid Id,
         string HomeClub,
         string AwayClub,
-        CompetitionType CompetitionType)
+        string CompetitionType,
+        DateTime DateTime)
         : ICommand;
 }

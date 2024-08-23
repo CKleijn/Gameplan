@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Carter;
 using GameplanAPI;
+using GameplanAPI.Common.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,9 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
+app.UseMiddleware<AuthMiddleware>();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

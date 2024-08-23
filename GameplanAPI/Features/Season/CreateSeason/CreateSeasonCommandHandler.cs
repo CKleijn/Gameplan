@@ -1,11 +1,13 @@
 ﻿using FluentValidation;
 using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
+using GameplanAPI.Common.Services._Interfaces;
 using GameplanAPI.Features.Season._Interfaces;
 
 namespace GameplanAPI.Features.Season.CreateSeason
 {
     public sealed class CreateSeasonCommandHandler(
+        IAuthService authService,
         ISeasonRepository seasonRepository, 
         IUnitOfWork unitOfWork, 
         IValidator<CreateSeasonCommand> validator,
@@ -24,6 +26,8 @@ namespace GameplanAPI.Features.Season.CreateSeason
             }
 
             var season = mapper.CreateSeasonCommandToSeason(request);
+
+            season.UserId = authService.GetCurrentUserId();
 
             seasonRepository.Add(season);
 

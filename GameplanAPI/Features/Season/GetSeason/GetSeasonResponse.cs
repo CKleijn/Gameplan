@@ -4,6 +4,8 @@
         Guid Id,
         string Club, 
         string CalendarYear,
+        IEnumerable<Match.Match> UpcomingMatches,
+        string Creator,
         string? UpdatedAt,
         string CreatedAt); 
 }

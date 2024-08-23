@@ -21,7 +21,7 @@ namespace GameplanAPI.Features.Match.UpdateMatchResult
 
             RuleFor(match => match.MatchStatus)
                 .NotEmpty()
-                .WithMessage("MatchStatus is required!");
+                .WithMessage("Status is required!");
         }
     }
 }

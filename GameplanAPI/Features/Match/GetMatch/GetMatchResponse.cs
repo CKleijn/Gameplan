@@ -7,6 +7,7 @@
         string AwayClub,
         int AwayScore,
         Guid SeasonId,
+        string DateTime,
         string MatchStatus,
         string CompetitionType,
         string? UpdatedAt,

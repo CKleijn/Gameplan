@@ -1,0 +1,25 @@
+{
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "icons": [
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "icons/icon512_maskable.png",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "sizes": "144x144",
+            "src": "icons/icon144_squared.png",
+            "type": "image/png"
+        }
+    ],
+    "orientation": "any",
+    "display": "standalone",
+    "name": "Gameplan",
+    "short_name": "Gameplan",
+    "start_url": "/",
+    "scope": "/",
+    "description": "An application to plan your football matches with your friends!"
+}

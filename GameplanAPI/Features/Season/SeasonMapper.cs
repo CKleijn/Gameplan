@@ -11,10 +11,20 @@ namespace GameplanAPI.Features.Season._Helpers
     {
         public partial Season CreateSeasonCommandToSeason(CreateSeasonCommand command);
 
+        [MapPropertyFromSource(nameof(GetSeasonResponse.Creator), Use = nameof(MapCreator))]
+        [MapPropertyFromSource(nameof(GetSeasonResponse.UpcomingMatches), Use = nameof(MapUpcomingMatches))]
         [MapPropertyFromSource(nameof(GetSeasonResponse.UpdatedAt), Use = nameof(MapUpdatedAt))]
         [MapPropertyFromSource(nameof(GetSeasonResponse.CreatedAt), Use = nameof(MapCreatedAt))]
         public partial GetSeasonResponse SeasonToGetSeasonResponse(Season season);
 
+        private string MapCreator(Season season) => season.UserId;
+        private IEnumerable<Match.Match> MapUpcomingMatches(Season season)
+        {
+            return season.Matches
+                .Where(m => m.MatchStatus == Common.Enums.MatchStatus.Upcoming && m.DateTime > DateTime.Now)
+                .OrderBy(m => m.DateTime)
+                .Take(3);
+        }
         private string? MapUpdatedAt(Season season) => season.UpdatedAt?.ToString("dd-MM-yyyy HH:mm");
         private string MapCreatedAt(Season season) => season.CreatedAt.ToString("dd-MM-yyyy HH:mm");
     }
