@@ -12,6 +12,7 @@
         "home": "Home",
         "back": "Back",
         "notFound": "404 Not found",
+        "notAuthorized": "403 Not authorized",
         "upcomingMatches": "Upcoming matches",
         "registerPresence": "Don't forget to register your presence!",
         "create": "Create",

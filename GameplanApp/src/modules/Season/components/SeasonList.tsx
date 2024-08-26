@@ -1,5 +1,5 @@
 import useFetchSeasons from "../hooks/useFetchSeasons";
-import Spinner from "@/core/components/Spinner";
+import Spinner from "@/core/components/utils/Spinner";
 import SeasonCard from "./SeasonCard";
 
 type Props = {};

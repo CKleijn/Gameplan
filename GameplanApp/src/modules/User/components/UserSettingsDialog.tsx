@@ -9,7 +9,7 @@ import {
 } from "@/core/components/ui/dialog";
 import { useTranslation } from "react-i18next";
 import { Settings } from "lucide-react";
-import UserLanguagePreference from "@/core/components/UserLanguagePreference";
+import UserLanguagePreference from "@/core/components/settings/UserLanguagePreference";
 
 type Props = {};
 

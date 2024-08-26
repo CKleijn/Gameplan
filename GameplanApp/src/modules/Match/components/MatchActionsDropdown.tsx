@@ -13,7 +13,7 @@ import { EllipsisVertical } from "lucide-react";
 import MatchEditFormDialogButton from "./MatchFormDialog";
 import { Match } from "../Match";
 import MatchResultFormDialogButton from "./MatchResultFormDialog";
-import MatchDeleteAlertDialog from "@/core/components/DeleteAlertDialog";
+import MatchDeleteAlertDialog from "@/core/components/dialogs/DeleteAlertDialog";
 import { deleteMatch } from "../services/matchService";
 
 type Props = {

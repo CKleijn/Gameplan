@@ -13,9 +13,9 @@ import {
 	AlertDialogAction,
 	AlertDialogHeader,
 	AlertDialogFooter,
-} from "./ui/alert-dialog";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
+} from "../ui/alert-dialog";
+import { Button } from "../ui/button";
+import { useToast } from "../ui/use-toast";
 import { useTranslation } from "react-i18next";
 
 type Props = {

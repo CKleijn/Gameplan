@@ -5,9 +5,9 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/core/components/ui/select";
-import i18n from "../services/i18n/i18n";
+import i18n from "../../services/i18n/i18n";
 import { useTranslation } from "react-i18next";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 
 type Props = {};
 

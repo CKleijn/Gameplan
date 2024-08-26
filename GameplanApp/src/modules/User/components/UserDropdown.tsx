@@ -1,11 +1,5 @@
-import {
-	getAuth,
-	GoogleAuthProvider,
-	signInWithPopup,
-	signOut,
-} from "firebase/auth";
-import { Button } from "./ui/button";
-import { Avatar, AvatarImage } from "./ui/avatar";
+import { Button } from "@/core/components/ui/button";
+import { Avatar, AvatarImage } from "@/core/components/ui/avatar";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -14,24 +8,20 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+} from "@/core/components/ui/dropdown-menu";
+import UserSettingsDialog from "@/modules/User/components/UserSettingsDialog";
+import UserProfileDialog from "@/modules/User/components/UserProfileDialog";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { RootState } from "../services/redux/store";
-import UserSettingsDialog from "../../modules/User/components/UserSettingsDialog";
-import UserProfileDialog from "@/modules/User/components/UserProfileDialog";
+import { RootState } from "@/core/services/redux/store";
+import UserSignOut from "./UserSignOut";
+import UserSignIn from "./UserSignIn";
 
 type Props = {};
 
-const Auth: React.FC<Props> = () => {
-	const auth = getAuth();
+const UserDropdown: React.FC<Props> = () => {
 	const { t } = useTranslation();
-	const { user } = useSelector((state: RootState) => state.userSlice);
-
-	const signInGoogle = async () =>
-		await signInWithPopup(auth, new GoogleAuthProvider());
-	const signOutGoogle = async () => await signOut(auth);
+	const user = useSelector((state: RootState) => state.userSlice.user);
 
 	return (
 		<>
@@ -59,19 +49,14 @@ const Auth: React.FC<Props> = () => {
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={signOutGoogle}>
-							<LogOut className="mr-2 h-4 w-4" />
-							{t("signOut")}
-						</DropdownMenuItem>
+						<UserSignOut />
 					</DropdownMenuContent>
 				</DropdownMenu>
 			) : (
-				<Button variant="ghost" onClick={signInGoogle}>
-					{t("signIn")}
-				</Button>
+				<UserSignIn />
 			)}
 		</>
 	);
 };
 
-export default Auth;
+export default UserDropdown;

@@ -9,7 +9,7 @@ import { Season } from "../Season";
 import UpcomingContext from "./UpcomingContent";
 import SeasonEditFormDialogButton from "./SeasonFormDialog";
 import { useNavigate } from "react-router-dom";
-import SeasonDeleteAlertDialog from "@/core/components/DeleteAlertDialog";
+import SeasonDeleteAlertDialog from "@/core/components/dialogs/DeleteAlertDialog";
 import { deleteSeason } from "../services/seasonService";
 import { Badge } from "@/core/components/ui/badge";
 

@@ -12,6 +12,7 @@
         "home": "Home",
         "back": "Terug",
         "notFound": "404 Niet gevonden",
+        "notAuthorized": "403 Niet geautoriseerd",
         "upcomingMatches": "Opkomende wedstrijden",
         "registerPresence": "Vergeet je aanwezigheid niet te registreren!",
         "create": "Aanmaken",

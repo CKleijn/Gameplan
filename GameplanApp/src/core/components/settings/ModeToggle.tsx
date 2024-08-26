@@ -7,7 +7,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/core/components/ui/dropdown-menu";
-import { useTheme } from "@/core/components/ThemeProvider";
+import { useTheme } from "@/core/components/settings/ThemeProvider";
 import { useTranslation } from "react-i18next";
 
 export function ModeToggle() {

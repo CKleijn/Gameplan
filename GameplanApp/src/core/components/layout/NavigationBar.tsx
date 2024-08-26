@@ -5,14 +5,18 @@ import {
 	NavigationMenuList,
 } from "@/core/components/ui/navigation-menu";
 import { Link, useNavigate } from "react-router-dom";
-import Auth from "./Auth";
-import NavLink from "./NavLink";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "../settings/ModeToggle";
+import { useTranslation } from "react-i18next";
+import UserDropdown from "@/modules/User/components/UserDropdown";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/redux/store";
 
 type Props = {};
 
 const NavigationBar: React.FC<Props> = () => {
+	const user = useSelector((state: RootState) => state.userSlice.user);
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	return (
 		<NavigationMenu className="fixed min-w-full">
@@ -28,11 +32,19 @@ const NavigationBar: React.FC<Props> = () => {
 					alt="Gameplan logo"
 				/>
 				<NavigationMenuList className="pt-4 space-x-4 float-right">
-					<NavigationMenuItem>
-						<Link to={"seasons"}>
-							<NavLink title="seasons" />
-						</Link>
-					</NavigationMenuItem>
+					{!!user && (
+						<NavigationMenuItem>
+							<Link to={"seasons"}>
+								<NavigationMenuLink>
+									<div className="block cursor-pointer select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+										<div className="text-sm font-medium leading-none">
+											{t("seasons")}
+										</div>
+									</div>
+								</NavigationMenuLink>
+							</Link>
+						</NavigationMenuItem>
+					)}
 					<NavigationMenuItem>
 						<NavigationMenuLink>
 							<ModeToggle />
@@ -40,7 +52,7 @@ const NavigationBar: React.FC<Props> = () => {
 					</NavigationMenuItem>
 					<NavigationMenuItem>
 						<NavigationMenuLink>
-							<Auth />
+							<UserDropdown />
 						</NavigationMenuLink>
 					</NavigationMenuItem>
 				</NavigationMenuList>

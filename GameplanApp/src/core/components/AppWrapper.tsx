@@ -1,12 +1,15 @@
-import { ThemeProvider } from "./ThemeProvider";
+import { ThemeProvider } from "./settings/ThemeProvider";
 import { Toaster } from "./ui/toaster";
-import NavigationBar from "./NavigationBar";
 import { Outlet } from "react-router-dom";
-import Footer from "./Footer";
+import Footer from "./layout/Footer";
+import { useUserStateListener } from "../hooks/useUserStateListener";
+import NavigationBar from "./layout/NavigationBar";
 
 type Props = {};
 
 const AppWrapper: React.FC<Props> = () => {
+	useUserStateListener();
+
 	return (
 		<ThemeProvider defaultTheme="dark">
 			<NavigationBar />
