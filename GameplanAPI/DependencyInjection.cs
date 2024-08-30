@@ -20,6 +20,8 @@ using GameplanAPI.Features.User;
 using Microsoft.OpenApi.Models;
 using GameplanAPI.Common.Services._Interfaces;
 using GameplanAPI.Common.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace GameplanAPI
 {
@@ -109,6 +111,9 @@ namespace GameplanAPI
                     options.Authority = configuration["Authentication:ValidIssuer"];
                     options.Audience = configuration["Authentication:Audience"];
                     options.TokenValidationParameters.ValidIssuer = configuration["Authentication:ValidIssuer"];
+                    options.TokenValidationParameters.ValidAudience = configuration["Authentication:Audience"];
+                    options.TokenValidationParameters.ValidateIssuer = true;
+                    options.TokenValidationParameters.ValidateAudience = true;
                 });
 
             builder.Services.AddAuthorization();
