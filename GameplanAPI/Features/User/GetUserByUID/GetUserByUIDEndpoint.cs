@@ -1,7 +1,6 @@
 ﻿using Carter;
 using GameplanAPI.Common.Annotations;
 using GameplanAPI.Common.Extensions;
-using GameplanAPI.Features.User._Interfaces;
 using MediatR;
 
 namespace GameplanAPI.Features.User.GetUserByUID
@@ -13,7 +12,6 @@ namespace GameplanAPI.Features.User.GetUserByUID
         {
             app.MapGet("user/{uid}", async (
                 ISender sender,
-                IUserMapper mapper,
                 string uid,
                 CancellationToken cancellationToken) =>
             {
@@ -22,7 +20,7 @@ namespace GameplanAPI.Features.User.GetUserByUID
                 var result = await sender.Send(query, cancellationToken);
 
                 return result.IsSuccess
-                    ? Results.Ok(mapper.UserToGetUserByUIDResponse(result.Value!))
+                    ? Results.Ok(result.Value)
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)

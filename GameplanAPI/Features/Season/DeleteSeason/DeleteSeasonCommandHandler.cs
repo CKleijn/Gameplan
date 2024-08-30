@@ -1,14 +1,12 @@
-﻿using GameplanAPI.Common.Interfaces;
+﻿using GameplanAPI.Common.Errors;
+using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Season._Interfaces;
-using GameplanAPI.Features.Season.GetSeason;
-using MediatR;
 
 namespace GameplanAPI.Features.Season.DeleteSeason
 {
     public sealed class DeleteSeasonCommandHandler(
         ISeasonRepository seasonRepository, 
-        ISender sender,
         IUnitOfWork unitOfWork)
         : ICommandHandler<DeleteSeasonCommand>
     {
@@ -16,16 +14,14 @@ namespace GameplanAPI.Features.Season.DeleteSeason
             DeleteSeasonCommand request, 
             CancellationToken cancellationToken)
         {
-            var seasonQuery = new GetSeasonQuery(request.Id);
+            var season = await seasonRepository.GetSeason(request.Id, cancellationToken);
 
-            var seasonQueryResult = await sender.Send(seasonQuery, cancellationToken);
-
-            if (seasonQueryResult.IsFailure)
+            if (season == null)
             {
-                return Result.Failure(seasonQueryResult.Error);
+                return Result.Failure(Errors<Season>.NotFound(request.Id));
             }
 
-            seasonRepository.Delete(seasonQueryResult.Value!);
+            seasonRepository.Delete(season);
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -205,6 +205,7 @@ const MatchFormDialog: React.FC<Props> = ({ seasonId, match, triggerUI }) => {
 									<FormLabel>{t("dateTime")}</FormLabel>
 									<FormControl>
 										<Input
+											className="w-full dark:[color-scheme:dark]"
 											type="datetime-local"
 											placeholder={t("dateTimePlaceholder")}
 											{...field}

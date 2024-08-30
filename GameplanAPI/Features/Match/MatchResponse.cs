@@ -1,6 +1,6 @@
-﻿namespace GameplanAPI.Features.Match.GetMatch
+﻿namespace GameplanAPI.Features.Match
 {
-    public sealed record GetMatchResponse(
+    public sealed record MatchResponse(
         Guid Id,
         string HomeClub,
         int HomeScore,

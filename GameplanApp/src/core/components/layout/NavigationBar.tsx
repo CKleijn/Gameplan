@@ -19,16 +19,12 @@ const NavigationBar: React.FC<Props> = () => {
 	const { t } = useTranslation();
 
 	return (
-		<NavigationMenu className="fixed min-w-full">
+		<NavigationMenu className="fixed min-w-full bg-blue-600">
 			<div className="container mx-auto">
 				<img
 					onClick={() => navigate("/")}
 					className="float-left h-14 mt-3 hover:cursor-pointer"
-					src={
-						localStorage.getItem("theme") == "dark"
-							? "logo_light.png"
-							: "logo_dark.png"
-					}
+					src={"logo_light.png"}
 					alt="Gameplan logo"
 				/>
 				<NavigationMenuList className="pt-4 space-x-4 float-right">

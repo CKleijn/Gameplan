@@ -22,7 +22,7 @@ namespace GameplanAPI.Features.Season.GetSeason
                 var result = await sender.Send(query, cancellationToken);
 
                 return result.IsSuccess 
-                    ? Results.Ok(mapper.SeasonToGetSeasonResponse(result.Value!)) 
+                    ? Results.Ok(result.Value) 
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)

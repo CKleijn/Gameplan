@@ -1,32 +1,55 @@
-﻿using GameplanAPI.Common.Interfaces;
+﻿using GameplanAPI.Common.Implementations;
+using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Match._Interfaces;
-using GameplanAPI.Features.Season.GetSeason;
-using MediatR;
+using System.Linq.Expressions;
 
 namespace GameplanAPI.Features.Match.GetAllMatches
 {
     public sealed class GetMatchesBySeasonQueryHandler(
         IMatchRepository matchRepository,
-        ISender sender)
-        : IQueryHandler<GetMatchesBySeasonQuery, IEnumerable<Match>>
+        IMatchMapper mapper)
+        : IQueryHandler<GetMatchesBySeasonQuery, PagedList<MatchResponse>>
     {
-        public async Task<Result<IEnumerable<Match>>> Handle(
-            GetMatchesBySeasonQuery request, 
+        public async Task<Result<PagedList<MatchResponse>>> Handle(
+            GetMatchesBySeasonQuery request,
             CancellationToken cancellationToken)
         {
-            var seasonQuery = new GetSeasonQuery(request.SeasonId);
+            var matchesQuery = matchRepository.GetAsQueryable();
+            matchesQuery = matchesQuery.Where(m => m.SeasonId == request.SeasonId);
 
-            var seasonQueryResult = await sender.Send(seasonQuery, cancellationToken);
-
-            if (seasonQueryResult.IsFailure)
+            if (!string.IsNullOrEmpty(request.SearchTerm))
             {
-                return Result<IEnumerable<Match>>.Failure(seasonQueryResult.Error);
+                matchesQuery = matchesQuery.Where(s =>
+                    s.HomeClub.Contains(request.SearchTerm) ||
+                    s.AwayClub.Contains(request.SearchTerm));
             }
 
-            var matches = await matchRepository.GetAllBySeason(request.SeasonId, cancellationToken);
+            if (request.SortOrder?.ToLower() == "desc")
+            {
+                matchesQuery = matchesQuery.OrderByDescending(GetSortProperty(request));
+            }
+            else
+            {
+                matchesQuery = matchesQuery.OrderBy(GetSortProperty(request));
+            }
 
-            return Result<IEnumerable<Match>>.Success(matches);
+            var matchesResponsesQuery = matchesQuery
+                .Select(m => mapper.MatchToMatchResponse(m));
+
+            var matches = await PagedList<MatchResponse>.CreateAsync(matchesResponsesQuery, request.Page, request.PageSize, cancellationToken);
+
+            return Result<PagedList<MatchResponse>>.Success(matches);
+        }
+        private static Expression<Func<Match, object>> GetSortProperty(GetMatchesBySeasonQuery request)
+        {
+            return request.SortColumn?.ToLower() switch
+            {
+                "competitionType" => match => match.CompetitionType,
+                "matchStatus" => match => match.MatchStatus,
+                "dateTime" => match => match.DateTime,
+                _ => match => match.CreatedAt
+            };
         }
     }
 }

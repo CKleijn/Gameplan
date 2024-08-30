@@ -12,26 +12,12 @@ namespace GameplanAPI.Common.Implementations
         : IRepository<TEntity>
         where TEntity : Entity
     {
-        public async Task<IEnumerable<TEntity>> GetAll(
-            CancellationToken cancellationToken,
-            IEnumerable<Expression<Func<TEntity, object>>> includes)
+        public IQueryable<TEntity> GetAsQueryable()
         {
-            logger.LogInformation($"[Repository<{typeof(TEntity).Name}>] Retrieving all records of type {typeof(TEntity).Name}");
-            return await context
+            logger.LogInformation($"[Repository<{typeof(TEntity).Name}>] Retrieving all records of type {typeof(TEntity).Name} as queryable");
+            return context
                 .Set<TEntity>()
-                .Include(includes)
-                .ToListAsync(cancellationToken);
-        }
-
-        public async Task<TEntity?> Get(Guid id,
-            CancellationToken cancellationToken,
-            IEnumerable<Expression<Func<TEntity, object>>> includes)
-        {
-            logger.LogInformation($"[Repository<{typeof(TEntity).Name}>] Retrieving specific record by id of type {typeof(TEntity).Name}");
-            return await context
-                .Set<TEntity>()
-                .Include(includes)
-                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+                .AsQueryable();
         }
 
         public void Add(TEntity entity)

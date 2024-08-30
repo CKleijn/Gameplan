@@ -1,17 +1,15 @@
 ﻿using FluentValidation;
 using GameplanAPI.Common.Enums;
+using GameplanAPI.Common.Errors;
 using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Match._Interfaces;
-using GameplanAPI.Features.Match.GetMatch;
-using MediatR;
 
 namespace GameplanAPI.Features.Match.UpdateMatchResult
 {
     public sealed class UpdateMatchResultCommandHandler(
         IMatchRepository matchRepository,
         IUnitOfWork unitOfWork,
-        ISender sender,
         IValidator<UpdateMatchResultCommand> validator)
         : ICommandHandler<UpdateMatchResultCommand>
     {
@@ -26,16 +24,12 @@ namespace GameplanAPI.Features.Match.UpdateMatchResult
                 Result.Failure(validationResult.Errors);
             }
 
-            var matchQuery = new GetMatchQuery(request.Id);
+            var match = await matchRepository.GetMatch(request.Id, cancellationToken);
 
-            var matchQueryResult = await sender.Send(matchQuery, cancellationToken);
-
-            if (matchQueryResult.IsFailure)
+            if (match == null)
             {
-                return Result.Failure(matchQueryResult.Error);
+                return Result.Failure(Errors<Match>.NotFound(request.Id));
             }
-
-            var match = matchQueryResult.Value!;
 
             if (match.MatchStatus == MatchStatus.Finished)
             {

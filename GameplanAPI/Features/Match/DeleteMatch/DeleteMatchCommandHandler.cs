@@ -1,14 +1,12 @@
-﻿using GameplanAPI.Common.Interfaces;
+﻿using GameplanAPI.Common.Errors;
+using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
 using GameplanAPI.Features.Match._Interfaces;
-using GameplanAPI.Features.Match.GetMatch;
-using MediatR;
 
 namespace GameplanAPI.Features.Match.DeleteMatch
 {
     public sealed class DeleteMatchCommandHandler(
         IMatchRepository matchRepository,
-        ISender sender,
         IUnitOfWork unitOfWork)
         : ICommandHandler<DeleteMatchCommand>
     {
@@ -16,16 +14,14 @@ namespace GameplanAPI.Features.Match.DeleteMatch
             DeleteMatchCommand request, 
             CancellationToken cancellationToken)
         {
-            var matchQuery = new GetMatchQuery(request.Id);
+            var match = await matchRepository.GetMatch(request.Id, cancellationToken);
 
-            var matchQueryResult = await sender.Send(matchQuery, cancellationToken);
-
-            if (matchQueryResult.IsFailure)
+            if (match == null)
             {
-                return Result.Failure(matchQueryResult.Error);
+                return Result.Failure(Errors<Match>.NotFound(request.Id));
             }
 
-            matchRepository.Delete(matchQueryResult.Value!);
+            matchRepository.Delete(match);
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
 

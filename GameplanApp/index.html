@@ -11,6 +11,13 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/index.tsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        await navigator.serviceWorker.register('sw.js')
+      });
+    }
+  </script>
 </body>
 
 </html>

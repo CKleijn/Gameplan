@@ -1,20 +1,34 @@
 import useFetchSeasons from "../hooks/useFetchSeasons";
 import Spinner from "@/core/components/utils/Spinner";
 import SeasonCard from "./SeasonCard";
+import { Dispatch, SetStateAction } from "react";
+import { PagedListQuery } from "@/core/components/utils/Types";
+import Paging from "@/core/components/tools/Paging";
 
-type Props = {};
+type Props = {
+	query: PagedListQuery;
+	setQuery: Dispatch<SetStateAction<PagedListQuery>>;
+};
 
-const SeasonList: React.FC<Props> = () => {
-	const { seasons, isLoading } = useFetchSeasons();
+const SeasonList: React.FC<Props> = ({ query, setQuery }) => {
+	const { seasons, paging, isLoading } = useFetchSeasons(query);
 
 	if (isLoading) return <Spinner />;
 
 	return (
-		<div className="grid grid-flow-row grid-cols-1 gap-5 mt-5 md:grid-cols-3">
-			{seasons.map((season) => (
-				<SeasonCard key={season.id} season={season} />
-			))}
-		</div>
+		<>
+			<div className="grid grid-flow-row grid-cols-1 gap-5 mt-5 md:grid-cols-3">
+				{seasons.map((season) => (
+					<SeasonCard key={season.id} season={season} />
+				))}
+			</div>
+			<Paging
+				queryKey="seasons"
+				paging={paging}
+				query={query}
+				setQuery={setQuery}
+			/>
+		</>
 	);
 };
 

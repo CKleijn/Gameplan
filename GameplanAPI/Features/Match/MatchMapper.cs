@@ -2,7 +2,6 @@
 using GameplanAPI.Common.Extensions;
 using GameplanAPI.Features.Match._Interfaces;
 using GameplanAPI.Features.Match.CreateMatch;
-using GameplanAPI.Features.Match.GetMatch;
 using Riok.Mapperly.Abstractions;
 
 namespace GameplanAPI.Features.Match
@@ -16,12 +15,12 @@ namespace GameplanAPI.Features.Match
 
         private CompetitionType MapCompetitionTypeString(CreateMatchCommand command) => Enum.Parse<CompetitionType>(command.CompetitionType);
 
-        [MapPropertyFromSource(nameof(GetMatchResponse.DateTime), Use = nameof(MapDateTime))]
-        [MapPropertyFromSource(nameof(GetMatchResponse.CompetitionType), Use = nameof(MapCompetitionType))]
-        [MapPropertyFromSource(nameof(GetMatchResponse.MatchStatus), Use = nameof(MapMatchStatus))]
-        [MapPropertyFromSource(nameof(GetMatchResponse.UpdatedAt), Use = nameof(MapUpdatedAt))]
-        [MapPropertyFromSource(nameof(GetMatchResponse.CreatedAt), Use = nameof(MapCreatedAt))]
-        public partial GetMatchResponse MatchToGetMatchResponse(Match match);
+        [MapPropertyFromSource(nameof(MatchResponse.DateTime), Use = nameof(MapDateTime))]
+        [MapPropertyFromSource(nameof(MatchResponse.CompetitionType), Use = nameof(MapCompetitionType))]
+        [MapPropertyFromSource(nameof(MatchResponse.MatchStatus), Use = nameof(MapMatchStatus))]
+        [MapPropertyFromSource(nameof(MatchResponse.UpdatedAt), Use = nameof(MapUpdatedAt))]
+        [MapPropertyFromSource(nameof(MatchResponse.CreatedAt), Use = nameof(MapCreatedAt))]
+        public partial MatchResponse MatchToMatchResponse(Match match);
 
         private string? MapDateTime(Match match) => match.DateTime.ToString("yyyy-MM-ddTHH:mm");
         private string MapCompetitionType(Match match) => match.CompetitionType.GetDisplayName();

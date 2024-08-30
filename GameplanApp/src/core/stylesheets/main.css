@@ -91,3 +91,8 @@
 .fixed-height {
   height: calc(100vh - 9rem);
 }
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 35px;
+}

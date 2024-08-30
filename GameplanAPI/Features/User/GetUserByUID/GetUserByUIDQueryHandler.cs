@@ -6,10 +6,11 @@ using GameplanAPI.Features.User._Interfaces;
 namespace GameplanAPI.Features.User.GetUserByUID
 {
     public sealed class GetUserByUIDQueryHandler(
+        IUserMapper mapper,
         IUserRepository userRepository)
-        : IQueryHandler<GetUserByUIDQuery, User>
+        : IQueryHandler<GetUserByUIDQuery, UserResponse>
     {
-        public async Task<Result<User>> Handle(
+        public async Task<Result<UserResponse>> Handle(
             GetUserByUIDQuery request,
             CancellationToken cancellationToken)
         {
@@ -17,10 +18,10 @@ namespace GameplanAPI.Features.User.GetUserByUID
 
             if (user == null)
             {
-                return Result<User>.Failure(Errors<User>.NotFound(request.UID));
+                return Result<UserResponse>.Failure(Errors<User>.NotFound(request.UID));
             }
 
-            return Result<User>.Success(user);
+            return Result<UserResponse>.Success(mapper.UserToUserResponse(user));
         }
     }
 }

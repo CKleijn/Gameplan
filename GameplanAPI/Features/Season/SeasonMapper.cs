@@ -1,6 +1,5 @@
 ﻿using GameplanAPI.Features.Season._Interfaces;
 using GameplanAPI.Features.Season.CreateSeason;
-using GameplanAPI.Features.Season.GetSeason;
 using Riok.Mapperly.Abstractions;
 
 namespace GameplanAPI.Features.Season._Helpers
@@ -11,11 +10,11 @@ namespace GameplanAPI.Features.Season._Helpers
     {
         public partial Season CreateSeasonCommandToSeason(CreateSeasonCommand command);
 
-        [MapPropertyFromSource(nameof(GetSeasonResponse.Creator), Use = nameof(MapCreator))]
-        [MapPropertyFromSource(nameof(GetSeasonResponse.UpcomingMatches), Use = nameof(MapUpcomingMatches))]
-        [MapPropertyFromSource(nameof(GetSeasonResponse.UpdatedAt), Use = nameof(MapUpdatedAt))]
-        [MapPropertyFromSource(nameof(GetSeasonResponse.CreatedAt), Use = nameof(MapCreatedAt))]
-        public partial GetSeasonResponse SeasonToGetSeasonResponse(Season season);
+        [MapPropertyFromSource(nameof(SeasonResponse.Creator), Use = nameof(MapCreator))]
+        [MapPropertyFromSource(nameof(SeasonResponse.UpcomingMatches), Use = nameof(MapUpcomingMatches))]
+        [MapPropertyFromSource(nameof(SeasonResponse.UpdatedAt), Use = nameof(MapUpdatedAt))]
+        [MapPropertyFromSource(nameof(SeasonResponse.CreatedAt), Use = nameof(MapCreatedAt))]
+        public partial SeasonResponse SeasonToSeasonResponse(Season season);
 
         private string MapCreator(Season season) => season.UserId;
         private IEnumerable<Match.Match> MapUpcomingMatches(Season season)

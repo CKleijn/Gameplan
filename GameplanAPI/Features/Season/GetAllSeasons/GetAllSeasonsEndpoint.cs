@@ -1,7 +1,6 @@
 ﻿using Carter;
 using GameplanAPI.Common.Annotations;
 using GameplanAPI.Common.Extensions;
-using GameplanAPI.Features.Season._Interfaces;
 using MediatR;
 
 namespace GameplanAPI.Features.Season.GetAllSeasons
@@ -12,16 +11,20 @@ namespace GameplanAPI.Features.Season.GetAllSeasons
         public void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapGet("seasons", async (
+                string? searchTerm,
+                string? sortColumn,
+                string? sortOrder,
+                int page,
+                int pageSize,
                 ISender sender,
-                ISeasonMapper mapper,
                 CancellationToken cancellationToken) =>
             {
-                var query = new GetAllSeasonsQuery();
+                var query = new GetAllSeasonsQuery(searchTerm, sortColumn, sortOrder, page, pageSize);
 
                 var result = await sender.Send(query, cancellationToken);
 
                 return result.IsSuccess 
-                    ? Results.Ok(result.Value!.Select(season => mapper.SeasonToGetSeasonResponse(season)).ToList()) 
+                    ? Results.Ok(result.Value) 
                     : result.GetProblemDetails();
             })
             .MapToApiVersion(1)

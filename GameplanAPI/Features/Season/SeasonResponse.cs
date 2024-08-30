@@ -1,11 +1,11 @@
-﻿namespace GameplanAPI.Features.Season.GetSeason
+﻿namespace GameplanAPI.Features.Season
 {
-    public sealed record GetSeasonResponse(
+    public sealed record SeasonResponse(
         Guid Id,
-        string Club, 
+        string Club,
         string CalendarYear,
         IEnumerable<Match.Match> UpcomingMatches,
         string Creator,
         string? UpdatedAt,
-        string CreatedAt); 
+        string CreatedAt);
 }

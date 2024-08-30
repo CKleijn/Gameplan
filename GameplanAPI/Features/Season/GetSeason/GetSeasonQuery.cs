@@ -3,5 +3,5 @@
 namespace GameplanAPI.Features.Season.GetSeason
 {
     public sealed record GetSeasonQuery(Guid Id) 
-        : IQuery<Season>;
+        : IQuery<SeasonResponse>;
 }

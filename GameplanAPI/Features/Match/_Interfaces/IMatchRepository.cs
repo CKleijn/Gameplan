@@ -5,8 +5,6 @@ namespace GameplanAPI.Features.Match._Interfaces
     public interface IMatchRepository 
         : IRepository<Match>
     {
-        Task<IEnumerable<Match>> GetAllBySeason(
-            Guid seasonId,
-            CancellationToken cancellationToken);
+        Task<Match?> GetMatch(Guid id, CancellationToken cancellationToken);
     }
 }

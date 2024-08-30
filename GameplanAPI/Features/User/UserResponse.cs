@@ -1,6 +1,6 @@
-﻿namespace GameplanAPI.Features.User.GetUserByUID
+﻿namespace GameplanAPI.Features.User
 {
-    public sealed record GetUserByUIDResponse(
+    public sealed record UserResponse(
         Guid Id,
         string UID,
         string DisplayName,

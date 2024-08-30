@@ -11,15 +11,14 @@ namespace GameplanAPI.Features.Match
         : Repository<Match>(context, logger),
         IMatchRepository
     {
-        public async Task<IEnumerable<Match>> GetAllBySeason(
-            Guid seasonId, 
+        public async Task<Match?> GetMatch(
+            Guid id,
             CancellationToken cancellationToken)
         {
-            logger.LogInformation($"[Repository<{typeof(Match).Name}>] Retrieving all records of type {typeof(Match).Name} by season {seasonId}");
+            logger.LogInformation($"[Repository<{typeof(Match).Name}>] Retrieving specific record by id of type {typeof(Match).Name}");
             return await context
                 .Set<Match>()
-                .Where(m => m.SeasonId == seasonId)
-                .ToListAsync(cancellationToken);
+                .FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
         }
     }
 }
