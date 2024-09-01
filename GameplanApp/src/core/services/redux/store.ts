@@ -1,9 +1,11 @@
 import userSlice from "@/modules/User/redux/userSlice";
 import { configureStore } from "@reduxjs/toolkit";
+import loadingSlice from "./loadingSlice";
 
 const store = configureStore({
     reducer: {
         userSlice,
+        loadingSlice
     }
 });
 

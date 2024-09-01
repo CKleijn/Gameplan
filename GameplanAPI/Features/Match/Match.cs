@@ -1,5 +1,6 @@
 ﻿using GameplanAPI.Common.Enums;
 using GameplanAPI.Common.Implementations;
+using System.Text.Json.Serialization;
 
 namespace GameplanAPI.Features.Match
 {
@@ -13,6 +14,7 @@ namespace GameplanAPI.Features.Match
         public MatchStatus MatchStatus { get; set; } = MatchStatus.Upcoming;
         public CompetitionType CompetitionType { get; set; } = CompetitionType.Other;
         public Guid SeasonId { get; set; } = Guid.Empty;
-        // Participants
+        [JsonIgnore]
+        public Season.Season Season { get; set; } = null!;
     }
 }

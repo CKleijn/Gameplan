@@ -1,17 +1,17 @@
 {
-    "theme_color": "#FFFFFF",
+    "theme_color": "#2563EB",
     "background_color": "#FFFFFF",
     "icons": [
         {
             "purpose": "maskable",
             "sizes": "512x512",
-            "src": "icons/icon512_maskable.png",
+            "src": "icons/maskable-icon.png",
             "type": "image/png"
         },
         {
             "purpose": "any",
             "sizes": "144x144",
-            "src": "icons/icon144_squared.png",
+            "src": "icons/icon-144.png",
             "type": "image/png"
         }
     ],

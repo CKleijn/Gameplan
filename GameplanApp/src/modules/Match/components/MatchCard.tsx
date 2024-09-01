@@ -3,20 +3,23 @@ import { Match } from "../Match";
 import { Badge } from "@/core/components/ui/badge";
 import MatchActionsDropdown from "./MatchActionsDropdown";
 import { useTranslation } from "react-i18next";
-import { dateFormatter } from "@/core/utils/helpers";
+import { dateFormatter, isCreator } from "@/core/utils/helpers";
 
 type Props = {
+	creator: string;
 	match: Match;
 };
 
-const MatchCard: React.FC<Props> = ({ match }) => {
+const MatchCard: React.FC<Props> = ({ creator, match }) => {
 	const { t } = useTranslation();
 
 	return (
 		<Card>
-			<CardHeader className="float-right p-2">
-				<MatchActionsDropdown match={match} />
-			</CardHeader>
+			{isCreator(creator) && (
+				<CardHeader className="float-right p-2">
+					<MatchActionsDropdown match={match} />
+				</CardHeader>
+			)}
 			<CardContent className="p-4">
 				<div className="flex flex-row text-center">
 					<div className="w-4/12 m-auto">

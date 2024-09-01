@@ -15,7 +15,7 @@ namespace GameplanAPI.Infrastructure.Persistence.Contexts
         {
             modelBuilder
                 .Entity<Match>()
-                .HasOne<Season>()
+                .HasOne(m => m.Season)
                 .WithMany(s => s.Matches)
                 .HasForeignKey(m => m.SeasonId)
                 .OnDelete(DeleteBehavior.Cascade);

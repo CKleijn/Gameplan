@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameplanAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240817134439_Update Principal User Key")]
-    partial class UpdatePrincipalUserKey
+    [Migration("20240901105002_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,11 +136,13 @@ namespace GameplanAPI.Migrations
 
             modelBuilder.Entity("GameplanAPI.Features.Match.Match", b =>
                 {
-                    b.HasOne("GameplanAPI.Features.Season.Season", null)
+                    b.HasOne("GameplanAPI.Features.Season.Season", "Season")
                         .WithMany("Matches")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Season");
                 });
 
             modelBuilder.Entity("GameplanAPI.Features.Season.Season", b =>

@@ -1,5 +1,4 @@
 import useFetchSeasons from "../hooks/useFetchSeasons";
-import Spinner from "@/core/components/utils/Spinner";
 import SeasonCard from "./SeasonCard";
 import { Dispatch, SetStateAction } from "react";
 import { PagedListQuery } from "@/core/components/utils/Types";
@@ -11,9 +10,7 @@ type Props = {
 };
 
 const SeasonList: React.FC<Props> = ({ query, setQuery }) => {
-	const { seasons, paging, isLoading } = useFetchSeasons(query);
-
-	if (isLoading) return <Spinner />;
+	const { seasons, paging } = useFetchSeasons(query);
 
 	return (
 		<>

@@ -1,12 +1,14 @@
 ﻿using GameplanAPI.Common.Errors;
 using GameplanAPI.Common.Interfaces;
 using GameplanAPI.Common.Models;
+using GameplanAPI.Common.Services._Interfaces;
 using GameplanAPI.Features.Match._Interfaces;
 
 namespace GameplanAPI.Features.Match.DeleteMatch
 {
     public sealed class DeleteMatchCommandHandler(
         IMatchRepository matchRepository,
+        IAuthService authService,
         IUnitOfWork unitOfWork)
         : ICommandHandler<DeleteMatchCommand>
     {
@@ -19,6 +21,13 @@ namespace GameplanAPI.Features.Match.DeleteMatch
             if (match == null)
             {
                 return Result.Failure(Errors<Match>.NotFound(request.Id));
+            }
+
+            var currentUserId = authService.GetCurrentUserId();
+
+            if (currentUserId == null || match.Season.UserId != currentUserId)
+            {
+                return Result.Failure(Errors<Match>.NotAuthorized);
             }
 
             matchRepository.Delete(match);

@@ -17,6 +17,7 @@ const useFetchSeasons = (query: PagedListQuery) => {
     const { data: newSeasons, isLoading, isError } = useQuery({
         queryKey: ["seasons"],
         queryFn: async ({ signal }) => getSeasons(query, signal),
+        retry: false,
     })
 
     useEffect(() => {

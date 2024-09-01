@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import SeasonDeleteAlertDialog from "@/core/components/dialogs/DeleteAlertDialog";
 import { deleteSeason } from "../services/seasonService";
 import { Badge } from "@/core/components/ui/badge";
+import { isCreator } from "@/core/utils/helpers";
 
 type Props = {
 	season: Season;
@@ -33,16 +34,18 @@ const SeasonCard: React.FC<Props> = ({ season }) => {
 			<CardContent>
 				<UpcomingContext upcomingMatches={season.upcomingMatches} />
 			</CardContent>
-			<CardFooter className="block space-y-2">
-				<SeasonEditFormDialogButton season={season} classNames="w-full" />
-				<SeasonDeleteAlertDialog
-					id={season.id}
-					type="season"
-					classNames="w-full"
-					queryKey="seasons"
-					mutation={deleteSeason}
-				/>
-			</CardFooter>
+			{isCreator(season.creator) && (
+				<CardFooter className="block space-y-2">
+					<SeasonEditFormDialogButton season={season} classNames="w-full" />
+					<SeasonDeleteAlertDialog
+						id={season.id}
+						type="season"
+						classNames="w-full"
+						queryKey="seasons"
+						mutation={deleteSeason}
+					/>
+				</CardFooter>
+			)}
 		</Card>
 	);
 };

@@ -24,7 +24,7 @@ const SeasonToolbar: React.FC<Props> = ({ query, setQuery }) => {
 	}, [searchTerm, sortColumn, sortOrder]);
 
 	return (
-		<div className="flex gap-5">
+		<div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
 			<Search placeholder="Search seasons" setQuery={setQuery} />
 			<SortColumn
 				items={["club", "calendarYear"]}

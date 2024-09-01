@@ -16,7 +16,8 @@ const useFetchMatchesBySeason = (seasonId: string, query: PagedListQuery) => {
 
     const { data: newMatches, isLoading, isError } = useQuery({
         queryKey: [`season/${seasonId}/matches`],
-        queryFn: async ({ signal }) => getMatchesBySeasonId(seasonId, query, signal)
+        queryFn: async ({ signal }) => getMatchesBySeasonId(seasonId, query, signal),
+        retry: false,
     })
 
     useEffect(() => {

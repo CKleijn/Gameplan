@@ -25,7 +25,7 @@ const MatchToolbar: React.FC<Props> = ({ seasonId, query, setQuery }) => {
 	}, [searchTerm, sortColumn, sortOrder]);
 
 	return (
-		<div className="flex gap-5">
+		<div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
 			<Search placeholder="Search matches" setQuery={setQuery} />
 			<SortColumn
 				items={["competitionType", "matchStatus", "dateTime"]}
